@@ -3,7 +3,7 @@ remote_theme: pages-themes/cayman@v0.2.0
 plugins:
   - jekyll-remote-theme # add this line to the plugins list if you already have one
 
-title:  University Project and other Resources
+title:  University Projects and other Resources
 description: "Repo used to host & quickly access resources, projects and other things Uni-related with GitHub pages"
 show_downloads: true
 defaults:
