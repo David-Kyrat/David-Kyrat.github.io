@@ -14,3 +14,8 @@ defaults:
     values:
       layout: "default"
 theme: jekyll-theme-cayman
+
+#
+# Command to run on localhost is:
+#   "bundle exec jekyll serve"
+#
