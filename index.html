@@ -2952,6 +2952,7 @@
             system-ui, "Ubuntu", "Droid Sans", sans-serif;
             font-size: 14px;
             line-height: 1.6;
+            overflow-x: hidden;
             /*background-color: #282c34;
             color: whitesmoke;*/
         }
@@ -2969,6 +2970,7 @@
     <style>
         #list-group, #list-group-title {
             display: flex;
+            width: 95%;
             justify-content: space-evenly;
         }
 
@@ -2976,19 +2978,32 @@
            /*  border: solid 1px red; */
             padding-right: 20px;
             padding-left: 20px;
+            color: dodgerblue;
+            font-size: 1.3em;
+        }
+        #list-group a {
+            color: inherit;
+        }
+
+        #list-group a:hover {
+            text-decoration: underline solid blueviolet 1pt;
         }
         
         #list-group ul, #list-group-title h3 {
             justify-items: center;
             
-            /* display: inherit; */
+        }
+
+        #list-group-title {
+            padding-bottom: 2em;
+            padding-bottom: 1.6em;
+            font-size: large;
         }
         
-        #list-group-title:first-child {
-            margin-right: 2em;
-            padding: 20%;
+        #list-group-title h3 {
+            font-weight: bold;
         }
-        
+
         #list-group-title h3:first-child {
             margin-right: 3em;
             /* padding: 0 5%; */
@@ -3039,13 +3054,13 @@
             <li>
                 <p>
                     <a href="./matlab-index.html">
-                        Mathlab Labs 
+                        Mathlab Midterm 
                     </a>
                 </p>
             </li>
             <li>
                 <p>
-                    <a href="./FBI-Notes/cours_index.html">Bash, SSH, Git Lectures</a>
+                    <a href="./fbi-index.html">Bash, SSH, Git Lectures</a>
                 </p>
             </li>
         </ul>
