@@ -1,0 +1,154 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 4, Suite et r&eacute;currence (3 pts)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-09"><meta name="DC.source" content="Exercice4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 4, Suite et r&eacute;currence (3 pts)</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Test de la fonction spir</a></li></ul></div><h2 id="2">Test de la fonction spir</h2><pre class="codeinput">format <span class="string">default</span>
+N = 80; k = 0.95; theta = pi * (1 ./ 10); v0 = [1 0]'; <span class="comment">% v0=[x0,y0]</span>
+spir(N, k, theta, v0(1), v0(2))
+<span class="comment">%f = @(vn) k * (vn(1) * [cos(theta), sin(theta)]') + (vn(2) * [-sin(theta), cos(theta)]');</span>
+</pre><p>Dessine les points <img src="Exercice4_eq09730401486999547614.png" alt="$(x_i, y_i)_{0 \leq i \leq N}$" style="width:75px;height:15px;"> d&eacute;finis tels que</p><p><img src="Exercice4_eq14461682196764669952.png" alt="$x_{n+1} = k(\cos(\theta)*x_n - sin(\theta)*y_n)$" style="width:219px;height:15px;"> et</p><p><img src="Exercice4_eq17189838524775160882.png" alt="$y_{n+1} = k(\sin(\theta)*x_n + cos(\theta)*y_n)$" style="width:215px;height:15px;"></p><p>Soit <img src="Exercice4_eq15450050418639386644.png" alt="$(\underline{v_n})_{i \leq 0}$" style="width:41px;height:16px;"> la suite de <img src="Exercice4_eq14599385950873869145.png" alt="$\mathbf{N} \rightarrow \mathbf{R^2}$" style="width:54px;height:13px;"> telle que <img src="Exercice4_eq09931581496530138457.png" alt="$\underline{v_n} := (x_n, y_n).$" style="width:88px;height:16px;"></p><pre class="codeinput"><span class="keyword">function</span> spir(N, k, th, x0, y0)
+	<span class="comment">% N - d&eacute;fini ci-dessus</span>
+	<span class="comment">% k - idem</span>
+	<span class="comment">% th - angle theta</span>
+	<span class="comment">% (x0,y0) - valeurs initiales</span>
+	<span class="comment">%</span>
+	axis <span class="string">equal</span>
+	grid <span class="string">on</span>
+	hold <span class="string">on</span>
+    v0 = [x0 y0]';
+    f = @(vn) k * ((vn(1) * [cos(th), sin(th)]') + (vn(2) * [-sin(th), cos(th)]'));
+	spir_rec(uint16(N), v0, k, th, f)
+	hold <span class="string">off</span>
+	<span class="comment">% uint16 specifi&eacute; pour emp&ecirc;cher le compilateur d'utiliser un floating point</span>
+	<span class="comment">% et toutes les erreurs d'arrondis qui vont avec.</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> spir_rec(left, acc, k, th, f)
+    <span class="comment">% left - nb d'iteration restante</span>
+    <span class="comment">% acc - accumulator de la function recursive qui contient le (N-left)&egrave;me terme de la suite</span>
+    <span class="comment">% f - step function (i.e. v_n+1 = f(v_n))</span>
+	<span class="comment">%</span>
+	plot(acc(1), acc(2), <span class="string">'.b'</span>)
+	<span class="keyword">if</span> left &gt; 0
+		spir_rec(uint16(left-1), f(acc), k, th, f)
+	<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="Exercice4_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 4, Suite et récurrence (3 pts)
+%%
+%
+
+%% Test de la fonction spir
+%
+format default
+N = 80; k = 0.95; theta = pi * (1 ./ 10); v0 = [1 0]'; % v0=[x0,y0]
+spir(N, k, theta, v0(1), v0(2))
+%f = @(vn) k * (vn(1) * [cos(theta), sin(theta)]') + (vn(2) * [-sin(theta), cos(theta)]');
+
+%%
+%
+% Dessine les points $(x_i, y_i)_{0 \leq i \leq N}$ définis tels que
+%%
+% $x_{n+1} = k(\cos(\theta)*x_n - sin(\theta)*y_n)$ et
+%%
+% $y_{n+1} = k(\sin(\theta)*x_n + cos(\theta)*y_n)$
+%%
+% Soit $(\underline{v_n})_{i \leq 0}$ la suite de $\mathbf{N} \rightarrow \mathbf{R^2}$ 
+% telle que $\underline{v_n} := (x_n, y_n).$
+%
+function spir(N, k, th, x0, y0) 
+	% N - défini ci-dessus
+	% k - idem
+	% th - angle theta
+	% (x0,y0) - valeurs initiales
+	%
+	axis equal
+	grid on
+	hold on
+    v0 = [x0 y0]';
+    f = @(vn) k * ((vn(1) * [cos(th), sin(th)]') + (vn(2) * [-sin(th), cos(th)]'));
+	spir_rec(uint16(N), v0, k, th, f)
+	hold off
+	% uint16 specifié pour empêcher le compilateur d'utiliser un floating point
+	% et toutes les erreurs d'arrondis qui vont avec.
+end
+
+function spir_rec(left, acc, k, th, f)
+    % left - nb d'iteration restante
+    % acc - accumulator de la function recursive qui contient le (N-left)ème terme de la suite
+    % f - step function (i.e. v_n+1 = f(v_n))
+	%
+	plot(acc(1), acc(2), '.b')
+	if left > 0 
+		spir_rec(uint16(left-1), f(acc), k, th, f)
+	end
+end
+
+##### SOURCE END #####
+--></body></html>

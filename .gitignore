@@ -1,0 +1,5 @@
+#
+# Ignore vscode config files, everywhere may they be
+#
+
+./**/.vscode

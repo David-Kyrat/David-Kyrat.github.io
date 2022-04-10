@@ -1,0 +1,433 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 2, Orthocentre d'un triangle (6 pts)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-09"><meta name="DC.source" content="Exercice2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 2, Orthocentre d'un triangle (6 pts)</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">2.1) Projection</a></li><li><a href="#7">2.2) Triangle</a></li><li><a href="#9">Impl&eacute;mentations</a></li><li><a href="#10">Projection()</a></li><li><a href="#11">Triangle()</a></li></ul></div><h2 id="2">2.1) Projection</h2><p>Test de "projection" :&deg;</p><pre class="codeinput">A=[1 2]; B=[2 0]; C=[0 0];
+</pre><pre class="codeinput">x1 = A(1); y1 = A(2); x3 = C(1);
+x2 = B(1); y2 = B(2); y3 = C(2);
+</pre><pre class="codeinput">x=[x1, x2, x3]; y=[y1, y2, y3];
+
+P_test = projection(x, y)
+</pre><p>On voit que <img src="Exercice2_eq02292108018719858855.png" alt="$P_{test}$" style="width:26px;height:13px;"> est bien colin&eacute;aire au vecteur qui engendre <img src="Exercice2_eq15853331535210710758.png" alt="$(BC)$" style="width:32px;height:15px;"> En effet <img src="Exercice2_eq07135160381864905726.png" alt="$P_{test} = - bc$" style="width:71px;height:13px;"> (voir d&eacute;finition de bc ci-dessous)</p><h2 id="7">2.2) Triangle</h2><p>Test de triangle:</p><pre class="codeinput">A=[1 2]; B=[0 0]; C=[2 0];
+x1 = A(1); y1 = A(2); x3 = C(1);
+x2 = B(1); y2 = B(2); y3 = C(2);
+</pre><pre class="codeinput">x=[x1, x2, x3]; y=[y1, y2, y3];
+triangle(x, y)
+</pre><h2 id="9">Impl&eacute;mentations</h2><h2 id="10">Projection()</h2><p>Avec a les points <img src="Exercice2_eq16413514608023460922.png" alt="$A(x_1, y_1)$" style="width:55px;height:15px;">, <img src="Exercice2_eq18286540638949605088.png" alt="$B(x_2, y_2)$" style="width:56px;height:15px;"> et <img src="Exercice2_eq10145774156233098649.png" alt="$C(x_3, y_3)$" style="width:55px;height:15px;"> o&ugrave; <img src="Exercice2_eq13942394108477284178.png" alt="$x=(x_1, x_2, x_3)$" style="width:94px;height:15px;"> et <img src="Exercice2_eq16090984152662246962.png" alt="$y=(y_1, y_2, y_3).$" style="width:93px;height:15px;"></p><p>La fonction doit retourner le point <img src="Exercice2_eq05264702651306243450.png" alt="$P(x_p, y_p)$" style="width:55px;height:15px;"> qui correspond &agrave; la projection du point <img src="Exercice2_eq08772416954200330719.png" alt="$A$" style="width:11px;height:11px;"> sur la droite <img src="Exercice2_eq15853331535210710758.png" alt="$(BC)$" style="width:32px;height:15px;">, i.e. <img src="Exercice2_eq13673020317163343254.png" alt="$P:= proj_{_{BC}} \ A$" style="width:91px;height:15px;"></p><pre class="codeinput"><span class="keyword">function</span> P=projection(x,y)
+	<span class="comment">% Les param&egrave;tres sont des vecteurs lignes !</span>
+	<span class="comment">%</span>
+	<span class="comment">% Retourne les coordonn&eacute;es de la projection de A sur BC</span>
+	<span class="comment">% Le type de retour est un vecteur ligne de R^2 &eacute;galement</span>
+
+	A=[x(1) y(1)]'; B=[x(2), y(2)]'; C=[x(3), y(3)]';  <span class="comment">% On travail avec des vecteurs colonnes</span>
+	bc =(C-B); bc = (bc/norm(bc)); <span class="comment">% Repr&eacute;sente le vecteur directeur (unitaire) de la droite (BC)</span>
+	P = dot(A, bc)*bc;
+	<span class="comment">% Projection de A sur bc</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Surcharge de projection(x, y) en donnant &agrave; la place les 3 points du triangle</span>
+<span class="comment">%</span>
+<span class="keyword">function</span> P=proj(A, B, C)
+	x = [A(1), B(1), C(1)];
+	y = [A(2), B(2), C(2)];
+	P = projection(x, y);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">P_test =
+       1       
+       0       
+</pre><img vspace="5" hspace="5" src="Exercice2_01.png" alt=""> <pre class="codeoutput">K =
+       2       
+       0       
+aC =
+      -1/2     
+bC =
+       1       
+</pre><img vspace="5" hspace="5" src="Exercice2_02.png" alt=""> <pre class="codeoutput">K =
+       0       
+       0       
+aB =
+       0       
+bB =
+       0       
+</pre><img vspace="5" hspace="5" src="Exercice2_03.png" alt=""> <pre class="codeoutput">K =
+       1       
+       2       
+aA =
+       0       
+bA =
+       0       
+</pre><h2 id="11">Triangle()</h2><p>Tout d'abord impl&eacute;mentons une fonction qui, donn&eacute; 3 points d'un triangle, peut dessiner la hauteur</p><pre class="codeinput"><span class="keyword">function</span> [a, b] = hauteur(K, B, C)
+	<span class="comment">% Retourne la hauteur du triangle qui part de K et coupe BC perpendiculairement.</span>
+	<span class="comment">%</span>
+	<span class="comment">% La hauteur d'un triangle en un point K(K_x, K_y) est juste une droite qui passe par K et par</span>
+	<span class="comment">% la projection orthogonale de K sur son c&ocirc;t&eacute; oppos&eacute;.</span>
+	<span class="comment">%</span>
+	<span class="comment">% ==&gt; Ce qui d&eacute;finit 2 points de la droite ==&gt; ce qui d&eacute;finit math&eacute;matiquement son &eacute;quation (a*x + b).</span>
+	<span class="comment">% ==&gt; E.g. pour K=(0, 0) qui a 0 en coordonn&eacute;e y, on voit que le param&egrave;tre b de sa hauteur doit &ecirc;tre 0,</span>
+	<span class="comment">% (on doit avoir f(K_x) = K_y, avec f(x) = ax+b)</span>
+	<span class="comment">% et on peut donc d&eacute;duire "a" comme x_K/y_K o&ugrave; (x_K, y_K) est la coordonn&eacute;e de h_K, l'intersection entre la hauteur et le c&ocirc;t&eacute; oppos&eacute;</span>
+	<span class="comment">%</span>
+	b = 0; a=0; Kx= K(1); Ky=K(2);
+	hK = proj(K, B, C); xK = hK(1); yK = hK(2);
+	<span class="comment">% Si K = (0, 0) sa projection donnera (0, 0) (car c'est une application lin&eacute;aire, donc f(0)=0 toujours)</span>
+	<span class="comment">% il faut donc d&eacute;terminer hK autrement:</span>
+	<span class="comment">% on prend simplement le vecteur normal (n) au c&ocirc;t&eacute; oppos&eacute;, qu'on fait partir depuis l'origine car K=(0,0) i.e. K est l'origine.</span>
+	K
+	<span class="keyword">if</span> isNull(Kx) &amp;&amp; isNull(Ky)
+		bc = C-B; n = [-bc(2), bc(1)];
+		plot([K(1), n(1)], [K(2), n(2)], <span class="string">'-g'</span>)
+		text(n(1), n(2), <span class="string">'h_K'</span>)
+
+	<span class="keyword">elseif</span> isNull(xK - Kx)
+		bc = C-B; n = [-bc(2) bc(1)]';
+		f = @(x) (K + x*n) ;
+		<span class="comment">% on doit trouver x tel que le vecteur K(K+x*n) est orthogonal &agrave; bc</span>
+		<span class="comment">% i.e. &lt;(K - (K + x*n)),  bc&gt; = 0, ce qui ce d&eacute;termine x de la mani&egrave;re suivante:</span>
+		<span class="comment">% x* (bc_2 * bc_1) + bc_1* bc_2</span>
+		<span class="comment">% ce qui est &eacute;quvilent &agrave; x = - bc_2* bc_1  / (bc_1 * bc_2 ) = -1,  on a donc :</span>
+		<span class="comment">%</span>
+		tmp=f(-1); hK = [tmp(1), tmp(2)];
+		plot([K(1), hK(1)], [K(2), hK(2)], <span class="string">'-g'</span>)
+		text(hK(1), hK(2), <span class="string">'h_K'</span>)
+
+	<span class="keyword">else</span>
+		hK = proj(K, B, C); xK = hK(1); yK = hK(2);
+
+		<span class="keyword">if</span> ~isNull(Kx)
+			a = (yK - Ky) / (xK - Kx);
+			b = (yK - (a*xK));
+		<span class="keyword">elseif</span> ~isNull(xK) <span class="comment">% si Kx = 0, on d&eacute;termine tout de suite a</span>
+				a= yK/xK;
+		<span class="keyword">end</span>
+		f = @(x) (a*x + b);  interv = [min([Kx, B(1), C(1)]), max([Kx, B(1), C(1)])];
+
+		fplot(f, interv, <span class="string">'-g'</span>)
+		text(xK, yK, <span class="string">'h_K'</span>);
+	<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p>Puis une pour calculer et dessiner l'orhtocentre d'un triangle.</p><pre class="codeinput"><span class="keyword">function</span> O=orhtoc(x, y, aK, bK)
+	<span class="comment">% D&eacute;termine les coordonn&eacute;es O=(Ox, Oy) de l'orthocentre du triangle ABC (A=(x1, y1) etc...),</span>
+	<span class="comment">% en connaissant la condition d'appartenance &agrave; la hauteur issue de A.</span>
+	<span class="comment">% aK * x + bK est l'&eacute;quation de la hauteur issue du point K (diff&eacute;rent de A)</span>
+	<span class="comment">%</span>
+	<span class="comment">% Si on combine la condition d'appartenance &agrave; la hauteur issue de A et</span>
+  <span class="comment">% l'&eacute;quation de la hauteur issue de K, on obtient un syst&egrave;me d'&eacute;quations &agrave; 2 inconnues</span>
+  <span class="comment">% (X,Y) i.e. la position de l'orthocentre O</span>
+  <span class="comment">%</span>
+  <span class="comment">% PS: on remarque que la condition d'appartenance d'un point M &agrave; la hauteur de A revient &agrave; imposer la condition que le vecteur AM soit orthogonal au vecteur BC (produit scalaire nul)</span>
+	<span class="comment">% 		(on peut donc la d&eacute;river &agrave; partir des points A,B et C)</span>
+  <span class="comment">% Une fois mis sous la forme matriciel, le syst&egrave;me prend la forme [M | res] o&ugrave; M et res sont d&eacute;finis de la mani&egrave;re suivante:</span>
+
+  M = horzcat([x(2) - x(3), aK]',  [y(2) - y(3), -1]');
+  res = [(x(1)*(x(2) - x(3))) + (y(1)*(y(2) - y(3))); -bK];
+  MAugm = horzcat(M, res)
+  <span class="comment">% Il ne suffit plus qu'&agrave; &eacute;chelonner r&eacute;duire le syst&egrave;me et on obtient O</span>
+  <span class="comment">%</span>
+	rref_MAugm = rref(MAugm)
+	O = rref_MAugm(:,size(rref_MAugm, 2));
+	plot(O(1), O(2), <span class="string">'hr'</span>)
+	text(O(1), O(2), <span class="string">'  Orthocentre'</span>);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">MAugm =
+      -2              0             -2       
+      -1/2           -1             -1       
+rref_MAugm =
+       1              0              1       
+       0              1              1/2     
+ortho =
+       1       
+       1/2     
+</pre><p>On a les points <img src="Exercice2_eq16413514608023460922.png" alt="$A(x_1, y_1)$" style="width:55px;height:15px;">, <img src="Exercice2_eq18286540638949605088.png" alt="$B(x_2, y_2)$" style="width:56px;height:15px;"> et <img src="Exercice2_eq10145774156233098649.png" alt="$C(x_3, y_3)$" style="width:55px;height:15px;"> o&ugrave; <img src="Exercice2_eq13942394108477284178.png" alt="$x=(x_1, x_2, x_3)$" style="width:94px;height:15px;"> et <img src="Exercice2_eq16090984152662246962.png" alt="$y=(y_1, y_2, y_3).$" style="width:93px;height:15px;"> La fonction doit dessiner le triangle <img src="Exercice2_eq17871012182686775113.png" alt="$ABC$" style="width:34px;height:11px;"> ainsi que dessiner ses 3 hauteurs (que l'on nommera O).</p><pre class="codeinput"><span class="keyword">function</span> triangle(x,y)
+</pre><pre class="codeinput">	<span class="comment">% Les param&egrave;tres sont des vecteurs lignes !</span>
+	A=[x(1) y(1)]'; B=[x(2), y(2)]'; C=[x(3), y(3)]';  <span class="comment">% On travail avec des vecteurs colonnes</span>
+	x1=A(1); x2=B(1); x3=C(1); y1=A(2); y2=B(2); y3=B(2);	 x(4) = x1; y(4) = y1;
+	<span class="comment">% et on rajoute un dernier point &eacute;gal au 1er pour "terminer" le dessin du triangle</span>
+
+	hold <span class="string">on</span>
+	axis <span class="string">equal</span>
+	plot(x, y, <span class="string">'-r'</span>);  xlabel(<span class="string">'X'</span>); ylabel(<span class="string">'Y'</span>);
+	grid <span class="string">on</span>;
+	format <span class="string">rat</span>
+	text(x1, y1, <span class="string">'A'</span>); text(x2, y2, <span class="string">'B'</span>); text(x3, y3, <span class="string">'C'</span>)
+	[aC, bC] = hauteur(C, A, B)
+	[aB, bB] = hauteur(B, A, C)
+	[aA, bA] = hauteur(A, B, C)
+</pre><img vspace="5" hspace="5" src="Exercice2_04.png" alt=""> <pre class="codeinput"><span class="comment">	%%</span>
+	<span class="comment">% si K = 0 hauteur() ne donne pas les bon a et b pour l'&eacute;quation de la droite on doit donc faire attention</span>
+	<span class="comment">% de ne pas les utiliser en param&egrave;tre pour l'appel ci-dessous:</span>
+	<span class="keyword">if</span> B == [0 0]
+		ortho = orhtoc(x, y, aC, bC)
+	<span class="keyword">else</span>
+		ortho = orhtoc(x, y, aB, bB)
+	<span class="keyword">end</span>
+
+	<span class="comment">% On v&eacute;rifie que le point appartient aux 3 hauteur:</span>
+</pre><img vspace="5" hspace="5" src="Exercice2_05.png" alt=""> <pre class="codeinput"><span class="comment">	%%</span>
+	<span class="comment">% Tout d'abord on voit imm&eacute;diatement sur la figure que O appartient &agrave; la hauteur issue de A</span>
+	<span class="comment">% (il est imm&eacute;diatement sous A)</span>
+	<span class="comment">% (et car l'&eacute;quation de son appartenance &eacute;tait ce qui nous a permis de le trouver et il en est de m&ecirc;me</span>
+	<span class="comment">% pour celle issue de C)</span>
+	<span class="comment">%</span>
+	<span class="comment">% Pour la derni&egrave;re une simple observation de la figue g&eacute;n&eacute;r&eacute; nous permet d'affirmer que la derni&egrave;re hauteur passe</span>
+	<span class="comment">% bien par l'orthocentre calcul&eacute;</span>
+	<span class="comment">%</span>
+	hold <span class="string">off</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 2, Orthocentre d'un triangle (6 pts)
+%%
+%
+
+%% 2.1) Projection
+% Test de "projection" :°
+%
+A=[1 2]; B=[2 0]; C=[0 0];
+%%
+x1 = A(1); y1 = A(2); x3 = C(1);
+x2 = B(1); y2 = B(2); y3 = C(2);
+%%
+x=[x1, x2, x3]; y=[y1, y2, y3];
+
+P_test = projection(x, y)
+%%
+
+%%
+% On voit que $P_{test}$ est bien colinéaire au vecteur qui engendre $(BC)$
+% En effet $P_{test} = - bc$ (voir définition de bc ci-dessous)
+%
+
+%% 2.2) Triangle
+%
+% Test de triangle:
+%
+A=[1 2]; B=[0 0]; C=[2 0];
+x1 = A(1); y1 = A(2); x3 = C(1);
+x2 = B(1); y2 = B(2); y3 = C(2);
+%%
+x=[x1, x2, x3]; y=[y1, y2, y3];
+triangle(x, y)
+
+
+%% Implémentations
+%
+
+%% Projection()
+%
+% Avec a les points $A(x_1, y_1)$, $B(x_2, y_2)$ et $C(x_3, y_3)$ où $x=(x_1, x_2, x_3)$ et $y=(y_1, y_2, y_3).$
+%
+% La fonction doit retourner le point $P(x_p, y_p)$ qui correspond à la projection
+% du point $A$ sur la droite $(BC)$, i.e. $P:= proj_{_{BC}} \ A$ 
+%
+function P=projection(x,y)
+	% Les paramètres sont des vecteurs lignes !
+	%
+	% Retourne les coordonnées de la projection de A sur BC
+	% Le type de retour est un vecteur ligne de R^2 également
+																		
+	A=[x(1) y(1)]'; B=[x(2), y(2)]'; C=[x(3), y(3)]';  % On travail avec des vecteurs colonnes
+	bc =(C-B); bc = (bc/norm(bc)); % Représente le vecteur directeur (unitaire) de la droite (BC)
+	P = dot(A, bc)*bc;
+	% Projection de A sur bc
+end
+
+% Surcharge de projection(x, y) en donnant à la place les 3 points du triangle
+% 
+function P=proj(A, B, C)
+	x = [A(1), B(1), C(1)];
+	y = [A(2), B(2), C(2)];
+	P = projection(x, y);
+end
+
+%% Triangle()
+% Tout d'abord implémentons une fonction qui, donné 3 points d'un triangle, peut dessiner la hauteur
+%
+function [a, b] = hauteur(K, B, C)
+	% Retourne la hauteur du triangle qui part de K et coupe BC perpendiculairement.
+	%
+	% La hauteur d'un triangle en un point K(K_x, K_y) est juste une droite qui passe par K et par 
+	% la projection orthogonale de K sur son côté opposé.
+	%
+	% ==> Ce qui définit 2 points de la droite ==> ce qui définit mathématiquement son équation (a*x + b).
+	% ==> E.g. pour K=(0, 0) qui a 0 en coordonnée y, on voit que le paramètre b de sa hauteur doit être 0,
+	% (on doit avoir f(K_x) = K_y, avec f(x) = ax+b)
+	% et on peut donc déduire "a" comme x_K/y_K où (x_K, y_K) est la coordonnée de h_K, l'intersection entre la hauteur et le côté opposé 
+	%
+	b = 0; a=0; Kx= K(1); Ky=K(2);
+	hK = proj(K, B, C); xK = hK(1); yK = hK(2); 
+	% Si K = (0, 0) sa projection donnera (0, 0) (car c'est une application linéaire, donc f(0)=0 toujours) 
+	% il faut donc déterminer hK autrement:
+	% on prend simplement le vecteur normal (n) au côté opposé, qu'on fait partir depuis l'origine car K=(0,0) i.e. K est l'origine.
+	K
+	if isNull(Kx) && isNull(Ky)
+		bc = C-B; n = [-bc(2), bc(1)];
+		plot([K(1), n(1)], [K(2), n(2)], '-g')
+		text(n(1), n(2), 'h_K')
+
+	elseif isNull(xK - Kx)
+		bc = C-B; n = [-bc(2) bc(1)]';
+		f = @(x) (K + x*n) ;
+		% on doit trouver x tel que le vecteur K(K+x*n) est orthogonal à bc
+		% i.e. <(K - (K + x*n)),  bc> = 0, ce qui ce détermine x de la manière suivante:
+		% x* (bc_2 * bc_1) + bc_1* bc_2 
+		% ce qui est équvilent à x = - bc_2* bc_1  / (bc_1 * bc_2 ) = -1,  on a donc :
+		%
+		tmp=f(-1); hK = [tmp(1), tmp(2)];
+		plot([K(1), hK(1)], [K(2), hK(2)], '-g')
+		text(hK(1), hK(2), 'h_K')
+
+	else 
+		hK = proj(K, B, C); xK = hK(1); yK = hK(2); 
+
+		if ~isNull(Kx)
+			a = (yK - Ky) / (xK - Kx);
+			b = (yK - (a*xK));
+		elseif ~isNull(xK) % si Kx = 0, on détermine tout de suite a
+				a= yK/xK;
+		end
+		f = @(x) (a*x + b);  interv = [min([Kx, B(1), C(1)]), max([Kx, B(1), C(1)])];
+
+		fplot(f, interv, '-g')
+		text(xK, yK, 'h_K');
+	end
+end
+
+
+%%
+% Puis une pour calculer et dessiner l'orhtocentre d'un triangle.
+%
+
+function O=orhtoc(x, y, aK, bK)
+	% Détermine les coordonnées O=(Ox, Oy) de l'orthocentre du triangle ABC (A=(x1, y1) etc...),
+	% en connaissant la condition d'appartenance à la hauteur issue de A.
+	% aK * x + bK est l'équation de la hauteur issue du point K (différent de A)
+	%
+	% Si on combine la condition d'appartenance à la hauteur issue de A et
+  % l'équation de la hauteur issue de K, on obtient un système d'équations à 2 inconnues 
+  % (X,Y) i.e. la position de l'orthocentre O
+  % 
+  % PS: on remarque que la condition d'appartenance d'un point M à la hauteur de A revient à imposer la condition que le vecteur AM soit orthogonal au vecteur BC (produit scalaire nul)
+	% 		(on peut donc la dériver à partir des points A,B et C)  		
+  % Une fois mis sous la forme matriciel, le système prend la forme [M | res] où M et res sont définis de la manière suivante:
+
+  M = horzcat([x(2) - x(3), aK]',  [y(2) - y(3), -1]');
+  res = [(x(1)*(x(2) - x(3))) + (y(1)*(y(2) - y(3))); -bK];
+  MAugm = horzcat(M, res)
+  % Il ne suffit plus qu'à échelonner réduire le système et on obtient O
+  %
+	rref_MAugm = rref(MAugm)
+	O = rref_MAugm(:,size(rref_MAugm, 2));
+	plot(O(1), O(2), 'hr')
+	text(O(1), O(2), '  Orthocentre');
+end
+
+%% 
+% 
+% On a les points $A(x_1, y_1)$, $B(x_2, y_2)$ et $C(x_3, y_3)$ où $x=(x_1, x_2, x_3)$ et $y=(y_1, y_2, y_3).$ 
+% La fonction doit dessiner le triangle $ABC$ ainsi que dessiner ses 3 hauteurs (que l'on nommera O).
+% 
+function triangle(x,y)
+	% Les paramètres sont des vecteurs lignes !
+	A=[x(1) y(1)]'; B=[x(2), y(2)]'; C=[x(3), y(3)]';  % On travail avec des vecteurs colonnes
+	x1=A(1); x2=B(1); x3=C(1); y1=A(2); y2=B(2); y3=B(2);	 x(4) = x1; y(4) = y1; 
+	% et on rajoute un dernier point égal au 1er pour "terminer" le dessin du triangle
+	
+	hold on 
+	axis equal 
+	plot(x, y, '-r');  xlabel('X'); ylabel('Y');
+	grid on;
+	format rat
+	text(x1, y1, 'A'); text(x2, y2, 'B'); text(x3, y3, 'C')
+	[aC, bC] = hauteur(C, A, B)
+	[aB, bB] = hauteur(B, A, C)
+	[aA, bA] = hauteur(A, B, C)
+	
+	%%
+	% si K = 0 hauteur() ne donne pas les bon a et b pour l'équation de la droite on doit donc faire attention
+	% de ne pas les utiliser en paramètre pour l'appel ci-dessous:
+	if B == [0 0]
+		ortho = orhtoc(x, y, aC, bC)	
+	else
+		ortho = orhtoc(x, y, aB, bB)	
+	end
+
+	% On vérifie que le point appartient aux 3 hauteur:
+
+	%%
+	% Tout d'abord on voit immédiatement sur la figure que O appartient à la hauteur issue de A 
+	% (il est immédiatement sous A)
+	% (et car l'équation de son appartenance était ce qui nous a permis de le trouver et il en est de même 
+	% pour celle issue de C)
+	% 
+	% Pour la dernière une simple observation de la figue généré nous permet d'affirmer que la dernière hauteur passe
+	% bien par l'orthocentre calculé
+	%
+	hold off
+end
+##### SOURCE END #####
+--></body></html>

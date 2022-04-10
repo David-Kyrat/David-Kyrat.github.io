@@ -1,0 +1,402 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 6, Simulation d'une loi Gaussienne (6 pts)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-09"><meta name="DC.source" content="Exercice6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 6, Simulation d'une loi Gaussienne (6 pts)</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">6.1) Loi normale centr&eacute;e</a></li><li><a href="#4">6.2) Loi normale centr&eacute;e - Repr&eacute;sentation</a></li><li><a href="#8">6.3) Regression non lin&eacute;aire gaussienne</a></li><li><a href="#24">Graph</a></li><li><a href="#27">R&eacute;solution</a></li><li><a href="#28">Fonctions</a></li></ul></div><h2 id="2">6.1) Loi normale centr&eacute;e</h2><p>Les fonctions rand, randi, randperm... utilisent le RNG de Matlab (i.e. random generator) dont la distribution est, par d&eacute;finition de la "randomness", uniforme (sur son image). De plus la documentation nous sp&eacute;cifie que les nombres g&eacute;n&eacute;r&eacute;s par ce dernier sont pseudo-independants. i.e. assez ind&eacute;pendant pour &ecirc;tre utilis&eacute; comme tel &agrave; notre &eacute;chelle. Et en sp&eacute;cifiant que les r&eacute;sultats doivent appartenir &agrave; [0, 1] (comme ce que fait "rand()" par d&eacute;faut), on obtient finalement donc nos lois uniforme sur [0, 1]</p><h2 id="4">6.2) Loi normale centr&eacute;e - Repr&eacute;sentation</h2><pre class="codeinput">N = 2000;
+n = uint32(floor(2/300 * N));
+</pre><p>Au TP3, nous avon vu que un bon nombre de bin pour environ 6'000 mesures &eacute;tait 40, ce qui fait &agrave; peu pr&egrave;s 2/3 de pourcent i.e. 2/300.</p><pre class="codeinput">v_normal = normal(N);
+h = histogram(v_normal, n);
+</pre><img vspace="5" hspace="5" src="Exercice6_01.png" alt=""> <p>On voit bien que l'histogramme g&eacute;n&eacute;r&eacute; d&eacute;crit bien une loi normale centr&eacute;e et qu'en reliant le milieu de chaque bin, on obtiendrait bien une courbe gaussienne.</p><h2 id="8">6.3) Regression non lin&eacute;aire gaussienne</h2><p>D&ucirc; au probl&egrave;me (expliqu&eacute; en bas de page &agrave; la section "Graph") qui est arriv&eacute; en suivant la d&eacute;marche du TP3, une impl&eacute;mentation "&agrave; la main" de la g&eacute;n&eacute;ration des param&egrave;tres n&eacute;c&eacute;ssaire &agrave; l'utilisisation de nlinfit &agrave; du &ecirc;tre faite. Impl&eacute;mentation qui est expliqu&eacute; ci-dessous:</p><p>On a calcul&eacute; notre variable al&eacute;atoire <img src="Exercice6_eq10220562898036074885.png" alt="$X = \sqrt{-2 \log(U_1)}\cos(2\pi U_2)$" style="width:179px;height:18px;"> qui nous g&eacute;n&egrave;re N valeurs (mesures) <img src="Exercice6_eq00586944813576399778.png" alt="$$\{m_k\}_{k \leq N}$" style="width:56px;height:15px;"> comme celles des champignons l'exercice pr&eacute;c&eacute;dant. Cependant, on ne peut pas tout de suite faire de r&eacute;gression car on a pas de point <img src="Exercice6_eq16247206711595679522.png" alt="$x$" style="width:8px;height:7px;"> &agrave; associer &agrave; chaque <img src="Exercice6_eq14521328786523663806.png" alt="$y$" style="width:7px;height:10px;"> pour avoir de points <img src="Exercice6_eq03051645405096817980.png" alt="$(x_i, y_i)$" style="width:39px;height:15px;"> / coordonn&eacute;es, &agrave; approximer par une fonction. On a juste des valeurs g&eacute;n&eacute;r&eacute;es sans dimensions. (ici <img src="Exercice6_eq01488610703755477609.png" alt="$N = 2000$" style="width:61px;height:11px;">)</p><p>Soit <img src="Exercice6_eq15686746087670827472.png" alt="$n \in \bf{N}^*$" style="width:45px;height:11px;">, pour g&eacute;n&eacute;rer ces <img src="Exercice6_eq05043059182872985900.png" alt="$x_i$" style="width:11px;height:9px;">, on va d&eacute;finir un intervalle <img src="Exercice6_eq07945034996586389322.png" alt="$I$" style="width:7px;height:11px;"> qui va contenir au moins toutes les valeurs de <img src="Exercice6_eq02826958244429667274.png" alt="$\{m_k\}$" style="width:32px;height:15px;"> i.e. on a: <img src="Exercice6_eq16610452831852826059.png" alt="$[\, \inf \, \{m_k\},\   \sup \, \{m_k\} \, ] \subseteq I$" style="width:163px;height:15px;"></p><p>On va ensuite diviser notre en interalle en <img src="Exercice6_eq17555110721583917243.png" alt="$n$" style="width:9px;height:7px;"> subdivisions et compter le nombre de valeurs g&eacute;n&eacute;r&eacute;es <img src="Exercice6_eq14675076360472238679.png" alt="$y_i$" style="width:10px;height:10px;"> qui appartient &agrave; chaque subdivisions <img src="Exercice6_eq04817993086029777111.png" alt="$I_i$" style="width:9px;height:13px;">. Puis, en repr&eacute;sentant chaque intervalle <img src="Exercice6_eq04817993086029777111.png" alt="$I_i$" style="width:9px;height:13px;"> par son milieu <img src="Exercice6_eq05043059182872985900.png" alt="$x_i$" style="width:11px;height:9px;">, on obtient:</p><p><img src="Exercice6_eq07163296032922634174.png" alt="$$&#xA;I \ = \ \bigcup_{i=1}^{n} {I_i}, \ \ \ y_i  := \vert \ \{ m_k \ \vert \ m_k \in I_i\} \ \vert,&#xA; \ \ \  x_i := i * \delta + x_1&#xA;$$" style="width:351px;height:41px;"></p><p>O&ugrave; <img src="Exercice6_eq12492974332187978896.png" alt="$\delta$" style="width:7px;height:11px;"> est la distance entre le milieu des 2 premiers intervalles (subdivisions de taille &eacute;gales). i.e. <img src="Exercice6_eq16796140145077092836.png" alt="$\delta := (\max I_1 - \min I_1)$" style="width:140px;height:15px;"> et <img src="Exercice6_eq07966545183708290323.png" alt="$x_1 := \frac{1}{2} (\max I_1 + \min I_1)$" style="width:156px;height:18px;"></p><p>En r&eacute;sum&eacute;, on obtient nos couples de points <img src="Exercice6_eq08571322683373678263.png" alt="$\{(x_i, y_i)\}_{1 \, \leq \, i \, \leq \, n}$" style="width:93px;height:15px;"> sur lesquels on peut appliquer une r&eacute;gression.</p><pre class="codeinput">Is = h.BinEdges; <span class="comment">% Ensemble qui contient les inf{ I_i } pour tout i</span>
+</pre><p>On trie v_normal pour simplifier le calcul des <img src="Exercice6_eq14675076360472238679.png" alt="$y_i$" style="width:10px;height:10px;"></p><pre class="codeinput">v_sorted = sort(v_normal);
+
+i = 1; <span class="comment">% index i des I_i</span>
+y = zeros(1, n); <span class="comment">% ensemble des y_i de taille n</span>
+
+<span class="keyword">for</span> k = 1:N
+    crt = v_sorted(k);
+    I_i = Is(i + 1); <span class="comment">% Is contient les inf de I_i, rien n'est inf&eacute;rieur &agrave; Is(1) (il faudra rajouter un dernier &eacute;l&eacute;ment &agrave; la main)</span>
+
+    <span class="keyword">if</span> i &lt;= n
+
+        <span class="keyword">if</span> (crt - I_i) &lt; 0 || isNull(crt - I_i)
+
+            y(i) = y(i) + 1;
+        <span class="keyword">else</span>
+            i = i + 1;
+            y(i) = y(i) + 1;
+        <span class="keyword">end</span>
+
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><p>On calcule maintenant les <img src="Exercice6_eq17186086090988818798.png" alt="$x_i = i \cdot \delta + \min {I_1}$" style="width:110px;height:13px;"> (min I1 = Is(1), max I1 = Is(2))</p><pre class="codeinput">delta = (Is(2) - Is(1)); x1 = 0.5 * (Is(2) + Is(1));
+
+x = double(0:1:n - 1);
+x = (x .* delta) + x1
+</pre><pre class="codeoutput">x =
+  Columns 1 through 7
+   -3.7250   -3.1750   -2.6250   -2.0750   -1.5250   -0.9750   -0.4250
+  Columns 8 through 13
+    0.1250    0.6750    1.2250    1.7750    2.3250    2.8750
+</pre><pre class="codeinput">y
+</pre><pre class="codeoutput">y =
+     2     3     6    49   150   275   387   420   334   235    98    38     3
+</pre><p>Calcul avec nlinfit</p><pre class="codeinput">init_values = [max(y), mean(y), std(y)];
+
+optimized_param = nlinfit(x, y, @gaussFun, init_values);
+A = optimized_param(1); gauss_mean = optimized_param(2); std_dev = optimized_param(3);
+
+gauss_opti = @(x) (gaussFun(optimized_param, x));
+</pre><p>On obtient les valeurs de <img src="Exercice6_eq08772416954200330719.png" alt="$A$" style="width:11px;height:11px;">, <img src="Exercice6_eq06904339251718989188.png" alt="$\mu$" style="width:9px;height:10px;"> et <img src="Exercice6_eq09992033592989221171.png" alt="$\sigma$" style="width:8px;height:7px;"> suivantes, respectivement:</p><pre class="codeinput">A
+</pre><pre class="codeoutput">A =
+  422.0592
+</pre><p><img src="Exercice6_eq06904339251718989188.png" alt="$\mu$" style="width:9px;height:10px;"></p><pre class="codeinput">gauss_mean
+</pre><pre class="codeoutput">gauss_mean =
+    0.0142
+</pre><p>et enfin <img src="Exercice6_eq09992033592989221171.png" alt="$\sigma$" style="width:8px;height:7px;"></p><pre class="codeinput">std_dev
+</pre><pre class="codeoutput">std_dev =
+    1.0517
+</pre><p>Graphes :</p><pre class="codeinput">interv = [x(1), x(n)]; <span class="comment">% x est tri&eacute;</span>
+plotreg = @() (fplot(gauss_opti, interv, <span class="string">'-b'</span>));
+
+<span class="comment">%axis equal</span>
+figure;
+plotreg()
+xlabel(<span class="string">'x'</span>); ylabel(<span class="string">'y'</span>);
+grid <span class="string">on</span>;
+drawnow;
+
+hold <span class="string">on</span>;
+plot(x, y, <span class="string">'or'</span>);
+legend(<span class="string">'Regression Gaussienne'</span>, <span class="string">'Points (x_i, y_i) originaux'</span>, <span class="string">'location'</span>, <span class="string">'northwest'</span>);
+
+drawnow;
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="Exercice6_02.png" alt=""> <pre class="codeinput">x'
+</pre><pre class="codeoutput">ans =
+   -3.7250
+   -3.1750
+   -2.6250
+   -2.0750
+   -1.5250
+   -0.9750
+   -0.4250
+    0.1250
+    0.6750
+    1.2250
+    1.7750
+    2.3250
+    2.8750
+</pre><pre class="codeinput">y
+</pre><pre class="codeoutput">y =
+     2     3     6    49   150   275   387   420   334   235    98    38     3
+</pre><h2 id="24">Graph</h2><p>En suivant la d&eacute;marche du TP3, on obtient l'erreur suivante : C'est pourquoi une impl&eacute;mentation "&agrave; la main" de la g&eacute;n&eacute;ration des param&egrave;tres n&eacute;c&eacute;ssaire &agrave; l'utilisisation de nlinfit &agrave; du &ecirc;tre faite.</p><p>Quand on lance le code plusieurs fois on se rend compte que, parfois, la regression marche tr&egrave;s bien on trouve <img src="Exercice6_eq11948826002693887940.png" alt="$A = 228.2080$" style="width:85px;height:11px;">, <img src="Exercice6_eq04440358657787732051.png" alt="$\mu = 0.0257$" style="width:69px;height:13px;"> et <img src="Exercice6_eq09453193786231224008.png" alt="$\sigma = 1.0581$" style="width:68px;height:11px;"> avec un graph qui suit bien le nuage de points. (Voir les images "Gaussian_Reg_Graph_Working.png"  et "Gaussian_Reg_Graph_Working2.png" pour 2 exemples)</p><p>Mais parfois, pour une raison inexpliqu&eacute;, on obtient une ligne "constante" comme graph de la fonction de r&eacute;gression, au milieu du nuage de points ainsi que le message d'erreur suviant:</p><p>"Some columns of the Jacobian are effectively zero at the solution, indicating that the model is insensitive to some of its parameters. That may be because those parameters are not present in the model, or otherwise do not affect the predicted values. It may also be due to numerical underflow in the model function, which can sometimes be avoided by choosing better initial r by rescaling or recentering. Parameter estimates may be unreliaameter estimates may be unreliable"</p><p>On obtient aussi le message "Warning: Rank deficient, rank = 2, tol =  2.561280e-14. &gt; In nlinfit&gt;LMfit (line 587) In nlinfit (line 284)" &agrave; la ligne o&ugrave; l'on a appel&eacute; linfit.</p><p>On obtient des valeurs completement aberrantes du type <img src="Exercice6_eq10336455229502468965.png" alt="$-2.7*10^{11}$" style="width:67px;height:13px;"> pour l'&eacute;cart type.</p><p>Ce qui est encore plus &eacute;trange, c'est que quand on utilse le "publish" de matlab la fonction de r&eacute;gression n'est jamais dessin&eacute;e. Pourtant si on compile le fichier hors de matlab, il n'y a pas de probl&egrave;me (c.f. images mentionn&eacute;es plus haut)</p><h2 id="27">R&eacute;solution</h2><p>Apr&egrave;s avoir fait l'impl&eacute;mentation "&agrave; la main" le probl&egrave;me arrive encore mais moins fr&eacute;quemment. Plusieurs versions html (published) o&ugrave; &ccedil;a &agrave; march&eacute; ont &eacute;t&eacute; sauvegard&eacute; dans le zip "Ex6-working-html-Backup.zip"</p><h2 id="28">Fonctions</h2><pre class="codeinput"><span class="keyword">function</span> y = gaussFun(a, x)
+    <span class="comment">% a(1) := A - amplitude</span>
+    <span class="comment">% a(2) := mean - moyenne de la gaussienne</span>
+    <span class="comment">% a(3) := std_dev - standard deviation, i.e. &eacute;cart type</span>
+    <span class="comment">% x - variable de la fonction (mathematiquement, i.e. pas un parametre)</span>
+
+    y = a(1) .* exp((-0.5) .* (x - a(2)).^2 ./ (a(3)^2));
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> X = normal(n)
+    <span class="comment">% Return: X - Vecteur n x 1, un vecteur colonne de taille n dont</span>
+    <span class="comment">%         les entr&eacute;es suivent une loi normal centr&eacute;e</span>
+
+    tmp = rand(n, 2);
+    U1 = tmp(:, 1); U2 = tmp(:, 2);
+    <span class="comment">%</span>
+    <span class="comment">% les entr&eacute;es U1 et U2 sont ind&eacute;pendantes distribu&eacute;es uniform&eacute;memnt sur [0, 1], donc:</span>
+
+    X = sqrt(-2 .* log(U1)) .* cos((2 * pi) .* U2);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 6, Simulation d'une loi Gaussienne (6 pts)
+%%
+%
+
+%% 6.1) Loi normale centrée
+%
+
+%%
+% Les fonctions rand, randi, randperm... utilisent le RNG de Matlab (i.e. random generator)
+% dont la distribution est, par définition de la "randomness", uniforme (sur son image).
+% De plus la documentation nous spécifie que les nombres générés
+% par ce dernier sont pseudo-independants.
+% i.e. assez indépendant pour être utilisé comme tel à notre échelle.
+% Et en spécifiant que les résultats doivent appartenir à [0, 1] (comme ce que fait "rand()" par défaut),
+% on obtient finalement donc nos lois uniforme sur [0, 1]
+%
+
+%% 6.2) Loi normale centrée - Représentation
+%
+N = 2000;
+n = uint32(floor(2/300 * N));
+%%
+% Au TP3, nous avon vu que un bon nombre de bin pour environ 6'000 mesures était 40, ce qui
+% fait à peu près 2/3 de pourcent i.e. 2/300.
+%
+
+v_normal = normal(N);
+h = histogram(v_normal, n);
+
+%%
+%%
+% On voit bien que l'histogramme généré décrit bien une loi normale centrée
+% et qu'en reliant le milieu de chaque bin, on obtiendrait bien une courbe gaussienne.
+
+%% 6.3) Regression non linéaire gaussienne
+%
+% Dû au problème (expliqué en bas de page à la section "Graph")
+% qui est arrivé en suivant la démarche du TP3,
+% une implémentation "à la main" de la génération des paramètres nécéssaire
+% à l'utilisisation de nlinfit à du être faite. Implémentation qui est expliqué ci-dessous:
+%
+%%
+%
+% On a calculé notre variable aléatoire $X = \sqrt{-2 \log(U_1)}\cos(2\pi U_2)$ qui nous génère N valeurs (mesures)
+% $$\{m_k\}_{k \leq N}$ comme celles des champignons l'exercice précédant.
+% Cependant, on ne peut pas tout de suite faire de régression car on a pas de point $x$ à associer à chaque $y$
+% pour avoir de points $(x_i, y_i)$ / coordonnées, à approximer par une fonction. On a juste des valeurs générées sans dimensions.
+% (ici $N = 2000$)
+%%
+% Soit $n \in \bf{N}^*$, pour générer ces $x_i$, on va définir un intervalle $I$ qui va contenir au moins toutes les valeurs de $\{m_k\}$ i.e.
+% on a:
+% $[\, \inf \, \{m_k\},\   \sup \, \{m_k\} \, ] \subseteq I$
+%
+% On va ensuite diviser notre en interalle en $n$ subdivisions et compter le nombre de
+% valeurs générées $y_i$ qui appartient à chaque subdivisions $I_i$. Puis, en
+% représentant chaque intervalle $I_i$ par son milieu $x_i$, on obtient:
+%%
+%
+% $$
+% I \ = \ \bigcup_{i=1}^{n} {I_i}, \ \ \ y_i  := \vert \ \{ m_k \ \vert \ m_k \in I_i\} \ \vert,
+%  \ \ \  x_i := i * \delta + x_1
+% $$
+%
+% Où $\delta$ est la distance entre le milieu des 2 premiers intervalles (subdivisions de taille égales).
+% i.e. $\delta := (\max I_1 - \min I_1)$ et $x_1 := \frac{1}{2} (\max I_1 + \min I_1)$
+%%
+%
+% En résumé, on obtient nos couples de points $\{(x_i, y_i)\}_{1 \, \leq \, i \, \leq \, n}$
+% sur lesquels on peut appliquer une régression.
+%
+
+Is = h.BinEdges; % Ensemble qui contient les inf{ I_i } pour tout i
+
+%%
+% On trie v_normal pour simplifier le calcul des $y_i$
+v_sorted = sort(v_normal);
+
+i = 1; % index i des I_i
+y = zeros(1, n); % ensemble des y_i de taille n
+
+for k = 1:N
+    crt = v_sorted(k);
+    I_i = Is(i + 1); % Is contient les inf de I_i, rien n'est inférieur à Is(1) (il faudra rajouter un dernier élément à la main)
+
+    if i <= n
+
+        if (crt - I_i) < 0 || isNull(crt - I_i)
+
+            y(i) = y(i) + 1;
+        else
+            i = i + 1;
+            y(i) = y(i) + 1;
+        end
+
+    end
+
+end
+
+%%
+% On calcule maintenant les $x_i = i \cdot \delta + \min {I_1}$ (min I1 = Is(1), max I1 = Is(2))
+%
+delta = (Is(2) - Is(1)); x1 = 0.5 * (Is(2) + Is(1));
+
+x = double(0:1:n - 1);
+x = (x .* delta) + x1
+%%
+y
+
+%%
+% Calcul avec nlinfit
+%
+
+init_values = [max(y), mean(y), std(y)];
+
+optimized_param = nlinfit(x, y, @gaussFun, init_values);
+A = optimized_param(1); gauss_mean = optimized_param(2); std_dev = optimized_param(3);
+
+gauss_opti = @(x) (gaussFun(optimized_param, x));
+%%
+% On obtient les valeurs de $A$, $\mu$ et $\sigma$ suivantes, respectivement:
+%
+A
+%%
+% $\mu$
+%
+gauss_mean
+%%
+% et enfin $\sigma$
+%
+std_dev
+
+%%
+% Graphes :
+
+interv = [x(1), x(n)]; % x est trié
+plotreg = @() (fplot(gauss_opti, interv, '-b'));
+
+%axis equal
+figure;
+plotreg()
+xlabel('x'); ylabel('y');
+grid on;
+drawnow;
+
+hold on;
+plot(x, y, 'or');
+legend('Regression Gaussienne', 'Points (x_i, y_i) originaux', 'location', 'northwest');
+
+drawnow;
+hold off;
+
+%%
+x'
+%%
+y
+%%
+
+%% Graph
+% En suivant la démarche du TP3, on obtient l'erreur suivante :
+% C'est pourquoi une implémentation "à la main" de la génération des paramètres nécéssaire
+% à l'utilisisation de nlinfit à du être faite.
+%%
+%
+% Quand on lance le code plusieurs fois on se rend compte que, parfois, la regression marche
+% très bien on trouve $A = 228.2080$, $\mu = 0.0257$ et $\sigma = 1.0581$ avec un graph qui
+% suit bien le nuage de points.
+% (Voir les images "Gaussian_Reg_Graph_Working.png"
+%  et "Gaussian_Reg_Graph_Working2.png" pour 2 exemples)
+%
+% Mais parfois, pour une raison inexpliqué, on obtient une ligne "constante" comme
+% graph de la fonction de régression, au milieu du nuage de points ainsi que le message d'erreur suviant:
+%
+% "Some columns of the Jacobian are effectively zero at the solution, indicating that the model is insensitive to some of its parameters.
+% That may be because those parameters are not present in the model, or otherwise do not affect the predicted values.
+% It may also be due to numerical underflow in the model function, which can sometimes be avoided by choosing better initial
+% r by rescaling or recentering. Parameter estimates may be unreliaameter estimates may be unreliable"
+%
+% On obtient aussi le message "Warning: Rank deficient, rank = 2, tol =  2.561280e-14. > In nlinfit>LMfit (line 587) In nlinfit (line 284)"
+% à la ligne où l'on a appelé linfit.
+%%
+% On obtient des valeurs completement aberrantes du type $-2.7*10^{11}$
+% pour l'écart type.
+%
+% Ce qui est encore plus étrange, c'est que quand on utilse le "publish" de
+% matlab la fonction de régression n'est jamais dessinée.
+% Pourtant si on compile le fichier hors de matlab,
+% il n'y a pas de problème (c.f. images mentionnées plus haut)
+%
+
+
+%% Résolution
+% Après avoir fait l'implémentation "à la main" le problème arrive encore
+% mais moins fréquemment. 
+% Plusieurs versions html (published) où ça à
+% marché ont été sauvegardé dans le zip "Ex6-working-html-Backup.zip"
+%
+
+%% Fonctions
+%
+
+function y = gaussFun(a, x)
+    % a(1) := A - amplitude
+    % a(2) := mean - moyenne de la gaussienne
+    % a(3) := std_dev - standard deviation, i.e. écart type
+    % x - variable de la fonction (mathematiquement, i.e. pas un parametre)
+
+    y = a(1) .* exp((-0.5) .* (x - a(2)).^2 ./ (a(3)^2));
+end
+
+function X = normal(n)
+    % Return: X - Vecteur n x 1, un vecteur colonne de taille n dont
+    %         les entrées suivent une loi normal centrée
+
+    tmp = rand(n, 2);
+    U1 = tmp(:, 1); U2 = tmp(:, 2);
+    %
+    % les entrées U1 et U2 sont indépendantes distribuées uniformémemnt sur [0, 1], donc:
+
+    X = sqrt(-2 .* log(U1)) .* cos((2 * pi) .* U2);
+end
+
+##### SOURCE END #####
+--></body></html>
