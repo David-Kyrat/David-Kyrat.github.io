@@ -1,0 +1,223 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercices 1 et 2:</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-26"><meta name="DC.source" content="ex1_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercices 1 et 2:</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Exercice 1, Op&eacute;rations sur les vecteurs</a></li><li><a href="#6">1.1)</a></li><li><a href="#9">1.2)</a></li><li><a href="#13">1.3)</a></li><li><a href="#15">Exercice 2, Diff&eacute;rence entre A*B et A.*B</a></li></ul></div><h2 id="1">Exercice 1, Op&eacute;rations sur les vecteurs</h2><pre>Initialisation des variables de l'&eacute;nonc&eacute;:</pre><pre class="codeinput">q=[2,1]; r=[3,0]; s=[1,-2,3]; t=[1,1,1]; u=[-2,4,-1];
+</pre><pre class="codeinput">v=[24:-1:-25];
+</pre><p>Cr&eacute;&eacute; un vecteur o&ugrave; chaque &eacute;l&eacute;ment <img src="ex1_2_eq10251401319065229849.png" alt="$v_i$" style="width:10px;height:9px;"> vaut <img src="ex1_2_eq17941510464991820338.png" alt="$v_i - 1$" style="width:35px;height:13px;"> le tout, commen&ccedil;ant &agrave; 24 et finissant &agrave; 25.</p><pre class="codeinput">w=[100:-2:2];
+</pre><p>Idem que pr&eacute;c&eacute;dement avec un pas de -2, un d&eacute;but &agrave; 100 et une fin &agrave; 2.</p><h2 id="6">1.1)</h2><pre class="codeinput">resultat_11 = q-r
+</pre><pre class="codeoutput">
+resultat_11 =
+
+    -1     1
+
+</pre><pre>q+3v n'est pas d&eacute;fini car "+" n'est d&eacute;fini que pour deux &eacute;l&eacute;ment d'un
+m&ecirc;me ensemble</pre><pre class="codeinput">resultat_13 = s + 3*t - u
+</pre><pre class="codeoutput">
+resultat_13 =
+
+     6    -3     7
+
+</pre><h2 id="9">1.2)</h2><pre class="codeinput">resultat_21 = dot(q, r);
+resultat_22 = dot(s,s) - 2*dot(s,t) - dot(s,u);
+</pre><pre>&lt;s|v&gt; n'est pas d&eacute;fini car le produit scalaire est une forme bilin&eacute;aire,
+or ici s et v n'appartiennent pas au m&ecirc;me ensemble.</pre><pre class="codeinput">resultat_24 = dot(v, w)
+</pre><pre class="codeoutput">
+resultat_24 =
+
+       19550
+
+</pre><pre class="codeinput">resultat_25 = dot(v, w)
+</pre><pre class="codeoutput">
+resultat_25 =
+
+       19550
+
+</pre><h2 id="13">1.3)</h2><pre class="codeinput">resultat_31 = norm(v)
+</pre><pre class="codeoutput">
+resultat_31 =
+
+  102.1029
+
+</pre><pre class="codeinput">resultat_32 = power(norm(s), 2)
+</pre><pre class="codeoutput">
+resultat_32 =
+
+    14
+
+</pre><h2 id="15">Exercice 2, Diff&eacute;rence entre A*B et A.*B</h2><p>D'apr&egrave;s la documentation on voit que <img src="ex1_2_eq00453120292293276823.png" alt="$A*B$" style="width:36px;height:11px;"> est le produit matriciel usuel, mais <img src="ex1_2_eq11993023305809406214.png" alt="$A.*B$" style="width:40px;height:11px;">, quant &agrave; elle, repr&eacute;sente la matrice C d&eacute;finie telle que pour tout i,j:</p><p><img src="ex1_2_eq07935895978032422688.png" alt="$C(i,j) = A(i,j)*B(i,j)$" style="width:155px;height:15px;"> i.e. multiplication composante par composante.</p><p>On obtient donc que</p><p><img src="ex1_2_eq13271487843595047334.png" alt="$A*B = 0 \leftrightarrow det(A) = 0$" style="width:155px;height:15px;"> ou <img src="ex1_2_eq07805517051032096337.png" alt="$det(B) = 0$" style="width:69px;height:15px;"></p><p>(en effet <img src="ex1_2_eq02553006072480262711.png" alt="$A*B=0 \rightarrow 0=det(A*B)=det(A)*det(B)$" style="width:299px;height:15px;">)</p><p>Et <img src="ex1_2_eq18152066581346343860.png" alt="$\ A.*B = 0 \leftrightarrow \forall i,j: A(i,j) = 0 \lor B(i,j) = 0$" style="width:281px;height:15px;"> On peut donc prendre deux matrices A et B inversible <img src="ex1_2_eq12832285507373098131.png" alt="$(det(A)*det(B) \ne 0)$" style="width:135px;height:15px;"> comme suit:</p><pre class="codeinput">A = [1 0 1; 0 1 0; 0 0 1]
+</pre><pre class="codeoutput">
+A =
+
+     1     0     1
+     0     1     0
+     0     0     1
+
+</pre><pre class="codeinput">B = [0 1 0; 1 0 1; 1 1 0]
+</pre><pre class="codeoutput">
+B =
+
+     0     1     0
+     1     0     1
+     1     1     0
+
+</pre><pre class="codeinput">is_invertible = det(A)*det(B) ~= 0
+</pre><pre class="codeoutput">
+is_invertible =
+
+  logical
+
+   1
+
+</pre><p>Retourne 1 i.e. dets effectivement non-nuls.</p><pre class="codeinput">null_matrix = A.*B
+</pre><pre class="codeoutput">
+null_matrix =
+
+     0     0     0
+     0     0     0
+     0     0     0
+
+</pre><p>On a bien: <img src="ex1_2_eq14808050901962163296.png" alt="$null\_matrix(i,j) = 0$" style="width:134px;height:15px;">  <img src="ex1_2_eq12399478426919197134.png" alt="$\forall i,j$" style="width:26px;height:13px;"></p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercices 1 et 2:
+%% Exercice 1, Opérations sur les vecteurs
+%%
+%  Initialisation des variables de l'énoncé:
+%
+q=[2,1]; r=[3,0]; s=[1,-2,3]; t=[1,1,1]; u=[-2,4,-1];
+%%
+v=[24:-1:-25];
+%%
+% Créé un vecteur où chaque élément $v_i$ vaut $v_i - 1$ le tout,
+% commençant à 24 et finissant à 25.
+
+w=[100:-2:2];
+%%
+% Idem que précédement avec un pas de -2, un début à 100 et une fin à 2.
+
+%% 1.1)
+%
+resultat_11 = q-r
+%%
+%  q+3v n'est pas défini car "+" n'est défini que pour deux élément d'un
+%  même ensemble 
+%%  
+resultat_13 = s + 3*t - u
+
+%% 1.2)
+%
+resultat_21 = dot(q, r);
+resultat_22 = dot(s,s) - 2*dot(s,t) - dot(s,u);
+%% 
+%  <s|v> n'est pas défini car le produit scalaire est une forme bilinéaire, 
+%  or ici s et v n'appartiennent pas au même ensemble. 
+%%
+resultat_24 = dot(v, w)
+%%
+resultat_25 = dot(v, w)
+
+%% 1.3)
+%
+resultat_31 = norm(v)
+%%
+resultat_32 = power(norm(s), 2)
+
+%% Exercice 2, Différence entre A*B et A.*B
+%%
+% D'après la documentation on voit que $A*B$ est le produit matriciel usuel,
+% mais $A.*B$, quant à elle, représente la matrice C définie telle que 
+% pour tout i,j:
+%%
+% 
+% $C(i,j) = A(i,j)*B(i,j)$ i.e. multiplication composante par composante.
+
+%%
+% On obtient donc que 
+%%
+% $A*B = 0 \leftrightarrow det(A) = 0$ ou $det(B) = 0$ 
+%
+% (en effet $A*B=0 \rightarrow 0=det(A*B)=det(A)*det(B)$) 
+%  
+% Et $\ A.*B = 0 \leftrightarrow \forall i,j: A(i,j) = 0 \lor B(i,j) = 0$ 
+% On peut donc prendre deux matrices A et B inversible $(det(A)*det(B) \ne 0)$
+% comme suit:
+%%
+A = [1 0 1; 0 1 0; 0 0 1]
+%%
+B = [0 1 0; 1 0 1; 1 1 0]
+%%
+is_invertible = det(A)*det(B) ~= 0
+%%
+% Retourne 1 i.e. dets effectivement non-nuls.
+null_matrix = A.*B
+%%
+% On a bien: 
+% $null\_matrix(i,j) = 0$  $\forall i,j$
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 1, Base orthornorm&eacute;e adapt&eacute;e &agrave; un plan</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-03-03"><meta name="DC.source" content="BaseR3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 1, Base orthornorm&eacute;e adapt&eacute;e &agrave; un plan</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">1.1)</a></li></ul></div><h2 id="1">1.1)</h2><p>Pour cette partie on va proc&eacute;der en 3 &eacute;tapes.</p><pre>1 - Calculer le vecteur v1 comme (P2-P1) et le vecteur x2 comme
+    (P3-P1), pour obtenir une famille {v1, x2} de vecteurs du plan.
+2 - Effectuer l'algorithme de Graam-Smidt sur cette famille pour
+    obtenir 2 vecteurs orthogonaux v1 et v2, qu'on va normer en u1 et u2
+3 - On prend simplement n comment &eacute;tant le produit vectoriel de
+    u_1  et u_2. On aura donc que n sera de norme 1 et orthognal aux
+    deux autres vecteurs.</pre><p>Or une famille de 3 vecteurs (dont aucun n'est nul) orthonorm&eacute;s de <img src="BaseR3_eq00684484332800498287.png" alt="$R^3$" style="width:16px;height:13px;"> est une base de <img src="BaseR3_eq00684484332800498287.png" alt="$R^3$" style="width:16px;height:13px;">.</p><pre class="codeinput"><span class="keyword">function</span> [u1, u2, n] = BaseR3(P1, P2, P3)
+    v1 = P2-P1; x2 = P3-P1;
+    projV1_x2 = (dot(x2, v1)/(dot(v1, v1)))*v1;
+    v2 = x2 - projV1_x2;
+    <span class="comment">% Graam-Smidt on enl&egrave;ve &agrave; x2 "ses composantes colin&eacute;aires &agrave; v1", pour obtenir un vecteur orthogona &agrave; v1</span>
+    u1 = v1 / norm(v1);
+    u2 = v2 / norm(v2);
+    <span class="comment">% on normalise</span>
+    n = cross(u1, u2);
+    <span class="comment">% sa norme est norm(u1)*norm(u2)*sin(angle(u1,u2)) = 1*1*sin(pi/2) = 1</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in BaseR3 (line 20)
+    v1 = P2-P1; x2 = P3-P1;
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 1, Base orthornormée adaptée à un plan
+%%
+%% 1.1)
+%
+% Pour cette partie on va procéder en 3 étapes.
+%
+%  1 - Calculer le vecteur v1 comme (P2-P1) et le vecteur x2 comme
+%      (P3-P1), pour obtenir une famille {v1, x2} de vecteurs du plan.
+%  2 - Effectuer l'algorithme de Graam-Smidt sur cette famille pour
+%      obtenir 2 vecteurs orthogonaux v1 et v2, qu'on va normer en u1 et u2
+%  3 - On prend simplement n comment étant le produit vectoriel de
+%      u_1  et u_2. On aura donc que n sera de norme 1 et orthognal aux 
+%      deux autres vecteurs. 
+%
+% Or une famille de 3 vecteurs (dont aucun n'est nul) orthonormés de $R^3$
+% est une base de $R^3$.
+% 
+
+function [u1, u2, n] = BaseR3(P1, P2, P3)
+    v1 = P2-P1; x2 = P3-P1;
+    projV1_x2 = (dot(x2, v1)/(dot(v1, v1)))*v1;
+    v2 = x2 - projV1_x2; 
+    % Graam-Smidt on enlève à x2 "ses composantes colinéaires à v1", pour obtenir un vecteur orthogona à v1
+    u1 = v1 / norm(v1);
+    u2 = v2 / norm(v2);
+    % on normalise
+    n = cross(u1, u2); 
+    % sa norme est norm(u1)*norm(u2)*sin(angle(u1,u2)) = 1*1*sin(pi/2) = 1
+end
+
+
+##### SOURCE END #####
+--></body></html>

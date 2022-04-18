@@ -1,0 +1,202 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 5, R&eacute;solution matricielle de syst&egrave;mes lin&eacute;aires</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-27"><meta name="DC.source" content="ex5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 5, R&eacute;solution matricielle de syst&egrave;mes lin&eacute;aires</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">5.1)</a></li><li><a href="#5">5.2)</a></li><li><a href="#9">5.3)</a></li></ul></div><p>Ici le l'objectif sera de transformer le syst&egrave;me d'&eacute;quations en matrice puis d'utiliser la m&eacute;thode rref de matlab et d'en analyser le r&eacute;sultat.</p><p>Soit <img src="ex5_eq10680593073158109750.png" alt="$A_1, A_2 A_3$" style="width:56px;height:14px;"> les matrices correspondantes aux syst&egrave;mes des points 1, 2 et 3. Initialisation des variables de l'&eacute;nonc&eacute;:</p><pre class="codeinput">A1 = [6 1 -5 6; 2 1 3 11; 4 -9 7 12]
+A2 = [6 1 -7 10; 2 2 3 2; 8 3 -4 12]
+A3 = [1 2 3 4 1; 2 3 4 1 -2; -2 4 -5 2 0; 8 1 -1 3 1]
+</pre><pre class="codeoutput">
+A1 =
+
+     6     1    -5     6
+     2     1     3    11
+     4    -9     7    12
+
+
+A2 =
+
+     6     1    -7    10
+     2     2     3     2
+     8     3    -4    12
+
+
+A3 =
+
+     1     2     3     4     1
+     2     3     4     1    -2
+    -2     4    -5     2     0
+     8     1    -1     3     1
+
+</pre><h2 id="3">5.1)</h2><pre class="codeinput">rref_A3=rref(A1); sol_51 = rref_A3(:,4);
+</pre><p>On v&eacute;rifie que l'on a bien la bonne solution:</p><pre class="codeinput">A1(1:3, 1:3)*sol_51
+</pre><pre class="codeoutput">
+ans =
+
+    6.0000
+   11.0000
+   12.0000
+
+</pre><h2 id="5">5.2)</h2><pre class="codeinput">rref_A2=rref(A2)
+sol_52 = rref_A2(:,4)
+A2(1:3, 1:3)*sol_52
+</pre><pre class="codeoutput">
+rref_A2 =
+
+    1.0000         0   -1.7000    1.8000
+         0    1.0000    3.2000   -0.8000
+         0         0         0         0
+
+
+sol_52 =
+
+    1.8000
+   -0.8000
+         0
+
+
+ans =
+
+    10
+     2
+    12
+
+</pre><p>sol_52 est bien solution du syst&egrave;me cependant, comme rref(A2) contient moins que 3 positions pivots il existe en r&eacute;alit&eacute; une infinit&eacute; de solutions.</p><p>On peut d&eacute;crire cet ensemble de solutions S comme <img src="ex5_eq03884721464521522049.png" alt="$S = \{ sol_{52} + x \vert x \in Ker(A_2) \}$" style="width:185px;height:15px;">. En effet:</p><p><img src="ex5_eq06576865096073012163.png" alt="$A_2(sol_{52} + x) = A_2*(sol_{52}) + A_2*x = A_2*(sol_{52}) = (10, 2, 12)$" style="width:402px;height:15px;"></p><h2 id="9">5.3)</h2><pre class="codeinput">rref_A3=rref(A3)
+sol_53 = rref_A3(:,5)
+A3(1:4, 1:4)*sol_53
+</pre><pre class="codeoutput">
+rref_A3 =
+
+    1.0000         0         0         0   -0.0857
+         0    1.0000         0         0   -0.6143
+         0         0    1.0000         0   -0.1736
+         0         0         0    1.0000    0.7088
+
+
+sol_53 =
+
+   -0.0857
+   -0.6143
+   -0.1736
+    0.7088
+
+
+ans =
+
+    1.0000
+   -2.0000
+   -0.0000
+    1.0000
+
+</pre><p>De la m&ecirc;me mani&egrave;re que au point 5.1), sol_53 est la seule solution du syst&egrave;me.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 5, Résolution matricielle de systèmes linéaires
+%%
+% Ici le l'objectif sera de transformer le système d'équations en matrice 
+% puis d'utiliser la méthode rref de matlab et d'en analyser le résultat.
+% 
+%%
+% Soit $A_1, A_2 A_3$ les matrices correspondantes aux systèmes des points
+% 1, 2 et 3. Initialisation des variables de l'énoncé:
+
+A1 = [6 1 -5 6; 2 1 3 11; 4 -9 7 12]
+A2 = [6 1 -7 10; 2 2 3 2; 8 3 -4 12]
+A3 = [1 2 3 4 1; 2 3 4 1 -2; -2 4 -5 2 0; 8 1 -1 3 1]
+
+%% 5.1) 
+%
+
+rref_A3=rref(A1); sol_51 = rref_A3(:,4);
+%% 
+% On vérifie que l'on a bien la bonne solution:
+A1(1:3, 1:3)*sol_51
+%% 5.2)
+%
+rref_A2=rref(A2)
+sol_52 = rref_A2(:,4)
+A2(1:3, 1:3)*sol_52
+%%
+% sol_52 est bien solution du système cependant, comme rref(A2) contient
+% moins que 3 positions pivots il existe en réalité une
+% infinité de solutions.
+%
+%%
+% On peut décrire cet ensemble de solutions S comme 
+% $S = \{ sol_{52} + x \vert x \in Ker(A_2) \}$. En effet:
+%%
+% $A_2(sol_{52} + x) = A_2*(sol_{52}) + A_2*x = A_2*(sol_{52}) = (10, 2, 12)$  
+
+%% 5.3)
+%
+rref_A3=rref(A3)
+sol_53 = rref_A3(:,5)
+A3(1:4, 1:4)*sol_53
+%%
+% De la même manière que au point 5.1), sol_53 est la seule solution du
+% système.
+##### SOURCE END #####
+--></body></html>

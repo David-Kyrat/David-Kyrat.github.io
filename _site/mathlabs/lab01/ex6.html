@@ -1,0 +1,381 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 6, Spectre d'une application lin&eacute;aire</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-27"><meta name="DC.source" content="ex6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 6, Spectre d'une application lin&eacute;aire</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">6.1) Ker(T)</a></li><li><a href="#4">6.2) Orthogonal H de T</a></li><li><a href="#9">6.3) Invariance</a></li><li><a href="#15">6.4) Spectre et Vecteurs Propres.</a></li><li><a href="#17">6.5) Orthodiagonalisation</a></li><li><a href="#20">6.6) Spectre d'un Polyn&ocirc;me appliqu&eacute; a une matrice T</a></li></ul></div><p>Initialisation des variables de l'&eacute;nonc&eacute;:</p><pre class="codeinput">T = 1/4*[1 -3 1 1; -3 1 1 1; 1 1 7 -9; 1 1 -9 7]
+</pre><pre class="codeoutput">
+T =
+
+    0.2500   -0.7500    0.2500    0.2500
+   -0.7500    0.2500    0.2500    0.2500
+    0.2500    0.2500    1.7500   -2.2500
+    0.2500    0.2500   -2.2500    1.7500
+
+</pre><h2 id="2">6.1) Ker(T)</h2><p>D'apr&egrave;s la documentation, la fonction null retourne une base orthonorm&eacute;e de ker A, on aura donc que pour toute matrice A:</p><p><img src="ex6_eq03108928372329535596.png" alt="$ker(A) = Vect(null(A))$" style="width:153px;height:15px;"> et <img src="ex6_eq14912847468643935132.png" alt="$dim(Ker(A)) = size(A)$" style="width:153px;height:15px;"></p><pre class="codeinput">base_kerT = null(T)
+size_kert = size(base_kerT); dim_kerT = size_kert(1,2)
+</pre><pre class="codeoutput">
+base_kerT =
+
+    0.5000
+    0.5000
+    0.5000
+    0.5000
+
+
+dim_kerT =
+
+     1
+
+</pre><h2 id="4">6.2) Orthogonal H de T</h2><p>On sait que pour toute matrice A, <img src="ex6_eq12480097049678990540.png" alt="$Ker(A)^{\perp} = Im(A^T)$" style="width:128px;height:17px;"> on a donc plus qu'a trouver l'image de la transpos&eacute;e de T or T est sym&eacute;trique, on peut juste prendre <img src="ex6_eq10442260964992545866.png" alt="$Im(T)$" style="width:41px;height:15px;"></p><pre class="codeinput">rref(T)
+</pre><pre class="codeoutput">
+ans =
+
+     1     0     0    -1
+     0     1     0    -1
+     0     0     1    -1
+     0     0     0     0
+
+</pre><p>Les colonnes pivots sont les 3 premi&egrave;res, on a donc qu'une base de l'image de T est form&eacute;e par les 3 premi&egrave;res colonnes de T</p><pre class="codeinput">base_ImT = T(1:4, 1:3);
+</pre><p>De plus base_kerT g&eacute;n&egrave;re enti&egrave;rement Ker T. On a donc, triviallement, que l'application de tout &eacute;l&eacute;ment de l'espace trivial par T est nul. Ce qui revient &agrave; dire que T*base_kerT = 0. Test:</p><pre class="codeinput">T*base_kerT
+</pre><pre class="codeoutput">
+ans =
+
+   1.0e-15 *
+
+    0.0833
+    0.3053
+   -0.6661
+    0.4441
+
+</pre><p>Or on voit que ce n'est pas tellement le cas d&ucirc; au degr&eacute; d'incertitude impos&eacute; par matlab. On est donc oblig&eacute; de consid&eacute;rer, de par les limites du langage/logiciel, que tout r&eacute;sultat dont la valeur absolue est plus petite que <img src="ex6_eq11618676185976869111.png" alt="$10^{-15}$" style="width:31px;height:13px;"> soit 0.</p><p>Outre cela, on a, comme dit plus haut, que <img src="ex6_eq12075256014127056657.png" alt="$Ker(T)^{\perp} = Im(T^T) = Im(T)$" style="width:189px;height:17px;">. Donc les colonnes de Base_ImT forment une base de <img src="ex6_eq09148900943513426168.png" alt="$Ker(T)^{\perp}$" style="width:57px;height:16px;"> i.e. Base_ImT = H</p><h2 id="9">6.3) Invariance</h2><p>H est invariant par application de T si et seulement si le r&eacute;sultat de l'application de  T &agrave; H g&eacute;n&egrave;re aussi H, i.e. ne change rien. On doit donc avoir que l'image de la compos&eacute; de H et T soit &eacute;gale &agrave; l'image de H. i.e. <img src="ex6_eq15086546326946622970.png" alt="$Im(T*H) = Im(H)$" style="width:133px;height:15px;"></p><p>La matrice qui g&eacute;n&egrave;re H est la suivante :</p><pre class="codeinput">H = base_ImT
+</pre><pre class="codeoutput">
+H =
+
+    0.2500   -0.7500    0.2500
+   -0.7500    0.2500    0.2500
+    0.2500    0.2500    1.7500
+    0.2500    0.2500   -2.2500
+
+</pre><pre class="codeinput">T*H
+</pre><pre class="codeoutput">
+ans =
+
+    0.7500   -0.2500   -0.2500
+   -0.2500    0.7500   -0.2500
+   -0.2500   -0.2500    8.2500
+   -0.2500   -0.2500   -7.7500
+
+</pre><pre class="codeinput">rref(T*H)
+rref(H)
+</pre><pre class="codeoutput">
+ans =
+
+     1     0     0
+     0     1     0
+     0     0     1
+     0     0     0
+
+
+ans =
+
+     1     0     0
+     0     1     0
+     0     0     1
+     0     0     0
+
+</pre><p>Leurs formes &eacute;chelonn&eacute;es r&eacute;duites &eacute;tant les m&ecirc;mes, l'ensembles des solutions <img src="ex6_eq09511492370633201390.png" alt="$(T*H)x = b$" style="width:82px;height:15px;"> et <img src="ex6_eq13574059690860895807.png" alt="$(H)*x = b$" style="width:71px;height:15px;"> sont les m&ecirc;mes et ce <img src="ex6_eq14023414535941993472.png" alt="$\forall b$" style="width:15px;height:11px;"></p><p>Les 2 matrices engendrent donc le m&ecirc;me sous-espace. On a bien que H est invariant par T.</p><h2 id="15">6.4) Spectre et Vecteurs Propres.</h2><p>D'apr&egrave;s la documentation [P, D] = eig(A) retourne P, D telles que D soit la matrices diagonales des valeurs propres de A et P la matrice des vecteurs propres. Ici T est sym&eacute;trique donc orthodiagonalisable, P est donc aussi la matrice de passage (inversible) de la base canonique vers la base propre.</p><pre class="codeinput">[P, D] = eig(T)
+</pre><pre class="codeoutput">
+P =
+
+   -0.5000   -0.5000    0.7071   -0.0000
+   -0.5000   -0.5000   -0.7071   -0.0000
+    0.5000   -0.5000   -0.0000   -0.7071
+    0.5000   -0.5000   -0.0000    0.7071
+
+
+D =
+
+   -1.0000         0         0         0
+         0   -0.0000         0         0
+         0         0    1.0000         0
+         0         0         0    4.0000
+
+</pre><p>Si <img src="ex6_eq05218335144560018497.png" alt="$Sp(T)$" style="width:37px;height:15px;"> est le spectre de T et B la base propre, l'on a que: <img src="ex6_eq03748648622000878891.png" alt="$Sp(T) = \{D_{ii} | 1 \leq i \leq 4  \}$" style="width:155px;height:15px;">. et <img src="ex6_eq10339520057201539486.png" alt="$B = \{P_i\}_{1\leq i\leq 4}$" style="width:89px;height:15px;">  ( o&ugrave; <img src="ex6_eq16329360807174398626.png" alt="$P_i$" style="width:13px;height:13px;"> est bien la i-eme colonne et non pas la i-eme ligne)</p><h2 id="17">6.5) Orthodiagonalisation</h2><p>Comme dit plus haut, T est sym&eacute;trique donc orthodiagonalisable. i.e. il existe 4 vecteurs propres de normes 1 tous orthogonaux les un aux autres. On v&eacute;rifie d'abord que ce n'est pas d&eacute;j&agrave; le cas pour les colonnes de P, car si &ccedil;a l'est, on les a d&eacute;j&agrave;.</p><pre class="codeinput"><span class="keyword">for</span> i = 1:4
+    <span class="keyword">for</span> j = (i+1):4
+        dot(P(:,i), P(:,j)) &lt;= (10^(-15))
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ans =
+
+  logical
+
+   1
+
+
+ans =
+
+  logical
+
+   1
+
+
+ans =
+
+  logical
+
+   1
+
+
+ans =
+
+  logical
+
+   1
+
+
+ans =
+
+  logical
+
+   1
+
+
+ans =
+
+  logical
+
+   1
+
+</pre><p>On voit que les produits scalaires de tous les vecteurs de P, 2 &agrave; 2, sont bien nuls, la base B est donc d&eacute;j&agrave; orthogonale. Reste &agrave; savoir si les vecteurs sont de normes 1:</p><pre class="codeinput"><span class="keyword">for</span> i=1:4
+    dot(P(:,i), P(:,i))
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000
+
+
+ans =
+
+     1
+
+
+ans =
+
+     1
+
+
+ans =
+
+     1
+
+</pre><p>On en conclut donc que la matrice P est d&eacute;j&agrave; orthogonal i.e. B est d&eacute;j&agrave; une base de vecteurs propres orthonorm&eacute;.</p><h2 id="20">6.6) Spectre d'un Polyn&ocirc;me appliqu&eacute; a une matrice T</h2><p>On sait que si <img src="ex6_eq10084146807967347884.png" alt="$v$" style="width:7px;height:7px;"> est un vecteur propre de valeur propre <img src="ex6_eq14606202617661871665.png" alt="$\lambda$" style="width:8px;height:11px;"> d'une matrice <img src="ex6_eq08772416954200330719.png" alt="$A$" style="width:11px;height:11px;">, alors soit <img src="ex6_eq14927246206938046595.png" alt="$P$" style="width:11px;height:11px;"> un polyn&ocirc;me, on a que <img src="ex6_eq10084146807967347884.png" alt="$v$" style="width:7px;height:7px;"> est aussi un vecteur propre de <img src="ex6_eq09834553427351040207.png" alt="$P(A)$" style="width:33px;height:15px;"> de valeur propre <img src="ex6_eq16501641853340143277.png" alt="$P(\lambda)$" style="width:30px;height:15px;">.</p><p>Le spectre <img src="ex6_eq05919853748942973990.png" alt="$Sp(P(T))$" style="width:60px;height:15px;"> de <img src="ex6_eq11313861396283672679.png" alt="$P(T)$" style="width:32px;height:15px;"> est donc <img src="ex6_eq17421545825721255565.png" alt="$\{P(\lambda) | \lambda \in Sp(T)\}$" style="width:114px;height:15px;">.</p><p>On pourrait dire que <img src="ex6_eq05919853748942973990.png" alt="$Sp(P(T))$" style="width:60px;height:15px;"> = <img src="ex6_eq05347379344042706631.png" alt="$P( Sp(T) )$" style="width:61px;height:15px;">, si l'on d&eacute;finit <img src="ex6_eq05347379344042706631.png" alt="$P( Sp(T) )$" style="width:61px;height:15px;"> comme ci-dessus.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 6, Spectre d'une application linéaire
+%%
+% Initialisation des variables de l'énoncé:
+T = 1/4*[1 -3 1 1; -3 1 1 1; 1 1 7 -9; 1 1 -9 7]
+
+%% 6.1) Ker(T)
+%
+% D'après la documentation, la fonction null retourne une base orthonormée
+% de ker A, on aura donc que pour toute matrice A:
+%
+%%
+%
+% $ker(A) = Vect(null(A))$ et $dim(Ker(A)) = size(A)$
+%
+base_kerT = null(T)
+size_kert = size(base_kerT); dim_kerT = size_kert(1,2)
+
+%% 6.2) Orthogonal H de T
+%
+% On sait que pour toute matrice A, 
+% $Ker(A)^{\perp} = Im(A^T)$ on a donc plus qu'a trouver l'image de la 
+% transposée de T or T est symétrique, on peut juste prendre $Im(T)$
+%
+rref(T)
+%%
+%
+% Les colonnes pivots sont les 3 premières, on a donc qu'une base de
+% l'image de T est formée par les 3 premières colonnes de T
+%
+base_ImT = T(1:4, 1:3);
+
+%%
+%
+% De plus base_kerT génère entièrement Ker T. On a donc,
+% triviallement, que l'application de tout élément de l'espace trivial par
+% T est nul. Ce qui revient à dire que T*base_kerT = 0. Test:
+% 
+T*base_kerT
+
+%% 
+% Or on voit que ce n'est pas tellement le cas dû au degré d'incertitude imposé 
+% par matlab. On est donc obligé de considérer, de par les limites du
+% langage/logiciel, que tout résultat dont la valeur absolue est plus
+% petite que $10^{-15}$ soit 0.
+
+%%
+% 
+% Outre cela, on a, comme dit plus haut, que $Ker(T)^{\perp} = Im(T^T) =
+% Im(T)$.
+% Donc les colonnes de Base_ImT forment une base de $Ker(T)^{\perp}$ 
+% i.e. Base_ImT = H
+%
+
+%% 6.3) Invariance
+%
+% H est invariant par application de T si et seulement si le résultat de 
+% l'application de  T à H génère aussi H, i.e. ne change rien.
+% On doit donc avoir que l'image de la composé de H et T soit égale à
+% l'image de H. i.e. $Im(T*H) = Im(H)$
+%%
+% La matrice qui génère H est la suivante :
+%
+H = base_ImT
+%%
+T*H
+%%
+rref(T*H)
+rref(H)
+%%
+%
+% Leurs formes échelonnées réduites étant les mêmes, l'ensembles des
+% solutions $(T*H)x = b$ et $(H)*x = b$ sont les mêmes et ce $\forall b$
+%
+%%
+% Les 2 matrices engendrent donc le même sous-espace. On a bien que H est
+% invariant par T.
+%
+
+
+%% 6.4) Spectre et Vecteurs Propres.
+% D'après la documentation [P, D] = eig(A) retourne P, D telles que D soit
+% la matrices diagonales des valeurs propres de A et P la matrice des
+% vecteurs propres. Ici T est symétrique donc orthodiagonalisable, P est donc
+% aussi la matrice de passage (inversible) de la base canonique vers la
+% base propre.
+%
+
+[P, D] = eig(T)
+
+%%
+% 
+% Si $Sp(T)$ est le spectre de T et B la base propre, l'on a que:
+% $Sp(T) = \{D_{ii} | 1 \leq i \leq 4  \}$.
+% et $B = \{P_i\}_{1\leq i\leq 4}$  ( où $P_i$ est bien la i-eme colonne et
+% non pas la i-eme ligne)
+% 
+
+%% 6.5) Orthodiagonalisation
+%
+% Comme dit plus haut, T est symétrique donc orthodiagonalisable. i.e. il
+% existe 4 vecteurs propres de normes 1 tous orthogonaux les un aux autres.
+% On vérifie d'abord que ce n'est pas déjà le cas pour les colonnes de P,
+% car si ça l'est, on les a déjà.
+%
+
+for i = 1:4
+    for j = (i+1):4
+        dot(P(:,i), P(:,j)) <= (10^(-15))
+    end
+end
+
+%%
+%
+% On voit que les produits scalaires de tous les vecteurs de P, 2 à 2, sont bien
+% nuls, la base B est donc déjà orthogonale. 
+% Reste à savoir si les vecteurs sont de normes 1: 
+%
+
+for i=1:4
+    dot(P(:,i), P(:,i))
+end
+
+%%
+%
+% On en conclut donc que la matrice P est déjà orthogonal i.e. B est déjà
+% une base de vecteurs propres orthonormé.
+%
+
+%% 6.6) Spectre d'un Polynôme appliqué a une matrice T
+%
+% On sait que si $v$ est un vecteur propre de valeur propre $\lambda$ d'une
+% matrice $A$, alors soit $P$ un polynôme, on a que $v$ est aussi un vecteur
+% propre de $P(A)$ de valeur propre $P(\lambda)$. 
+%
+%%
+% Le spectre $Sp(P(T))$ de $P(T)$ est donc $\{P(\lambda) | \lambda \in
+% Sp(T)\}$.
+%%
+% On pourrait dire que $Sp(P(T))$ = $P( Sp(T) )$, si l'on définit
+% $P( Sp(T) )$ comme ci-dessus.
+##### SOURCE END #####
+--></body></html>

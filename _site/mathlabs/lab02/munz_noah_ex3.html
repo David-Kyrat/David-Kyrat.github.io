@@ -1,0 +1,171 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 3, Visualisation</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-03-23"><meta name="DC.source" content="munz_noah_ex3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 3, Visualisation</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#5">3.1)</a></li><li><a href="#6">3.2)</a></li><li><a href="#7">3.3)</a></li><li><a href="#8">3.4)</a></li><li><a href="#9">3.5)</a></li></ul></div><p>Initialisation des variables de l'&eacute;nonc&eacute;:</p><pre class="codeinput">P1 = [3,4,-1]'
+P2 = [5, 3, -1]'
+P3 = [5, 5, 1]'
+A=[2,0,1]'
+</pre><pre class="codeoutput">P1 =
+     3
+     4
+    -1
+P2 =
+     5
+     3
+    -1
+P3 =
+     5
+     5
+     1
+A =
+     2
+     0
+     1
+</pre><pre class="codeinput">[u1, u2, n] = BaseR3(P1, P2, P3)
+</pre><pre class="codeoutput">u1 =
+    0.8944
+   -0.4472
+         0
+u2 =
+    0.2981
+    0.5963
+    0.7454
+n =
+   -0.3333
+   -0.6667
+    0.6667
+</pre><pre class="codeinput">B = ProjPointPlan(P1, P2, P3, A)
+</pre><pre class="codeoutput">base_pi =
+    0.8944    0.2981
+   -0.4472    0.5963
+         0    0.7454
+B =
+    3.4444
+    2.8889
+   -1.8889
+B =
+    3.4444
+    2.8889
+   -1.8889
+</pre><pre class="codeinput">A1 = A(1); A2=A(2); A3=A(3); B1=B(1); B2=B(2); B3=B(3);
+AB1 = B1-A1; AB2 = B2-A2; AB3=B3-A3;
+</pre><h2 id="5">3.1)</h2><p>On veut dessiner en 3d</p><pre class="codeinput">view(3);
+<span class="comment">% Pour afficher plusieurs &eacute;l&eacute;ements sur le m&ecirc;me plot.</span>
+hold <span class="string">on</span>
+<span class="comment">% Met tous les axes &agrave; la m&ecirc;me &eacute;chelle.</span>
+axis <span class="string">equal</span>
+</pre><img vspace="5" hspace="5" src="munz_noah_ex3_01.png" alt=""> <h2 id="6">3.2)</h2><pre class="codeinput">plot3(A(1),A(2),A(3),<span class="string">'.r'</span>, B(1),B(2),B(3),<span class="string">'.b'</span>);
+</pre><img vspace="5" hspace="5" src="munz_noah_ex3_02.png" alt=""> <h2 id="7">3.3)</h2><pre class="codeinput">text(A1,A2,A3,<span class="string">'A'</span>,<span class="string">'Color'</span>,<span class="string">'r'</span>)
+text(B1,B2,B3,<span class="string">'B'</span>,<span class="string">'Color'</span>,<span class="string">'b'</span>)
+</pre><img vspace="5" hspace="5" src="munz_noah_ex3_03.png" alt=""> <h2 id="8">3.4)</h2><pre class="codeinput">quiver3(A1, A2, A3, AB1, AB2, AB3, <span class="string">'k'</span>)
+</pre><img vspace="5" hspace="5" src="munz_noah_ex3_04.png" alt=""> <h2 id="9">3.5)</h2><pre class="codeinput">AffichagePlan(B, u1, u2, 4)
+</pre><img vspace="5" hspace="5" src="munz_noah_ex3_05.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 3, Visualisation
+%%
+% Initialisation des variables de l'énoncé:
+%
+P1 = [3,4,-1]'
+P2 = [5, 3, -1]'
+P3 = [5, 5, 1]'
+A=[2,0,1]'
+%%
+[u1, u2, n] = BaseR3(P1, P2, P3)
+%%
+B = ProjPointPlan(P1, P2, P3, A)
+%%
+A1 = A(1); A2=A(2); A3=A(3); B1=B(1); B2=B(2); B3=B(3);
+AB1 = B1-A1; AB2 = B2-A2; AB3=B3-A3;
+
+%% 3.1)
+%
+% On veut dessiner en 3d 
+view(3); 
+% Pour afficher plusieurs éléements sur le même plot. 
+hold on 
+% Met tous les axes à la même échelle.
+axis equal
+%% 3.2)
+%
+plot3(A(1),A(2),A(3),'.r', B(1),B(2),B(3),'.b');
+
+%% 3.3)
+%
+text(A1,A2,A3,'A','Color','r')
+text(B1,B2,B3,'B','Color','b')
+
+%% 3.4)
+%
+quiver3(A1, A2, A3, AB1, AB2, AB3, 'k')
+
+%% 3.5)
+%
+AffichagePlan(B, u1, u2, 4)
+##### SOURCE END #####
+--></body></html>

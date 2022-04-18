@@ -1,0 +1,111 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 9, Changement de bases</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-27"><meta name="DC.source" content="noah_munz_ex9.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 9, Changement de bases</h1><!--introduction--><!--/introduction--><p>Soit Em, Ek les bases canoniques de <img src="noah_munz_ex9_eq04811605240330753628.png" alt="${R^m}$" style="width:20px;height:11px;"> et <img src="noah_munz_ex9_eq03709005304554406713.png" alt="$R^k$" style="width:16px;height:13px;"> et B et C les nouvelles bases. On a que pour une matrice A repr&eacute;sent&eacute; dans les bases Em et Ek, la matrice dans les bases B et C, A_bc, est d&eacute;fini comme:</p><p><img src="noah_munz_ex9_eq08422562004607357849.png" alt="$[A]_{bc} = ( [AB_i]_{ C} )_{1 \leq i \leq k}$" style="width:131px;height:15px;"></p><p>On sait aussi que <img src="noah_munz_ex9_eq12666837209657424132.png" alt="$[A]_{bc}$" style="width:27px;height:15px;"> est donn&eacute;e par la relation suivante: soit <img src="noah_munz_ex9_eq16656192485006155217.png" alt="$P_c$" style="width:14px;height:13px;"> la matrice de passage de la base C &agrave; la base canonique, i.e. la matrice dont les colonnes sont les &eacute;l&eacute;ments de C, on a: <img src="noah_munz_ex9_eq04447352224970592701.png" alt="$[A]_{bc} = {P_b}^{-1} A P_c$" style="width:100px;height:17px;"> o&ugrave; <img src="noah_munz_ex9_eq01223303961753658374.png" alt="$P_b$" style="width:13px;height:13px;"> et <img src="noah_munz_ex9_eq16656192485006155217.png" alt="$P_c$" style="width:14px;height:13px;"> sont donn&eacute;es en argument.</p><pre class="codeinput"><span class="keyword">function</span> Abc = basis_change(A, Pb, Pc)
+    <span class="comment">% Prend la matrice A exprim&eacute;s par rapport aux bases canonique et</span>
+    <span class="comment">% retourne A exprim&eacute;s par rapport aux bases B et C gr&acirc;ces aux matrices</span>
+    <span class="comment">% de passages, Pb et Pc, pass&eacute;es en argument.</span>
+    <span class="comment">%</span>
+    Abc = Pb^(-1)*A*Pc;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in noah_munz_ex9 (line 23)
+    Abc = Pb^(-1)*A*Pc;
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 9, Changement de bases
+%%
+% Soit Em, Ek les bases canoniques de ${R^m}$ et $R^k$ et B et C les
+% nouvelles bases.
+% On a que pour une matrice A représenté dans les bases Em et Ek, la
+% matrice dans les bases B et C, A_bc, est défini comme:
+%%
+% $[A]_{bc} = ( [AB_i]_{ C} )_{1 \leq i \leq k}$
+% 
+%% 
+% 
+% On sait aussi que $[A]_{bc}$ est donnée par la relation suivante:
+% soit $P_c$ la matrice de passage de la base C à la base canonique, i.e.
+% la matrice dont les colonnes sont les éléments de C, on a:
+% $[A]_{bc} = {P_b}^{-1} A P_c$ où $P_b$ et $P_c$ sont données en argument.
+%
+
+function Abc = basis_change(A, Pb, Pc)
+    % Prend la matrice A exprimés par rapport aux bases canonique et 
+    % retourne A exprimés par rapport aux bases B et C grâces aux matrices
+    % de passages, Pb et Pc, passées en argument.
+    %
+    Abc = Pb^(-1)*A*Pc;
+end
+
+
+
+##### SOURCE END #####
+--></body></html>

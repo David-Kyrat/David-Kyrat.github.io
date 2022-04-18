@@ -1,0 +1,190 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 3, Figures g&eacute;om&eacute;triques</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-26"><meta name="DC.source" content="ex3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 3, Figures g&eacute;om&eacute;triques</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">3.1) Carr&eacute;</a></li><li><a href="#3">3.2) Polygone r&eacute;gulier &agrave; n c&ocirc;t&eacute;s</a></li><li><a href="#10">3.3) Carr&eacute; pench&eacute;</a></li><li><a href="#14">3.4) Pentagramme</a></li><li><a href="#16">3.5) Cercle</a></li></ul></div><h2 id="2">3.1) Carr&eacute;</h2><pre class="codeinput">y = [0 0 1 1];
+x = [0 1 1 0];
+square = polyshape(x,y);
+plot(square);
+</pre><img vspace="5" hspace="5" src="ex3_01.png" alt=""> <h2 id="3">3.2) Polygone r&eacute;gulier &agrave; n c&ocirc;t&eacute;s</h2><p>On remarque que l'ensemble S des solutions complexes de la racine de l'unit&eacute; (i.e. <img src="ex3_eq09297861950738877702.png" alt="$z^n = 1$" style="width:40px;height:11px;">) donne exactement n points r&eacute;partis uniform&eacute;ment sur le cercle trigonom&eacute;trique, i.e. l'argument du k-eme &eacute;l&eacute;ment de S s'exprime commme <img src="ex3_eq05469015499057986228.png" alt="$\theta_k = k*\frac{2*\pi}{n}$" style="width:73px;height:19px;"> pour k = 0..n-1. On peut donc obtenir un polygone r&eacute;gulier &agrave; n c&ocirc;t&eacute;s simplement en les reliants et en ajoutant un point pour <img src="ex3_eq09610327742393258332.png" alt="$k=n$" style="width:36px;height:11px;"> pour fermer le polygone.</p><pre class="codeinput">polygon(3);
+</pre><img vspace="5" hspace="5" src="ex3_02.png" alt=""> <pre class="codeinput">polygon(4);
+</pre><img vspace="5" hspace="5" src="ex3_03.png" alt=""> <pre class="codeinput">polygon(5);
+</pre><img vspace="5" hspace="5" src="ex3_04.png" alt=""> <pre class="codeinput">polygon(12);
+</pre><img vspace="5" hspace="5" src="ex3_05.png" alt=""> <p>Le r&eacute;sultat est l&eacute;g&egrave;rement d&eacute;cal&eacute; sur le c&ocirc;t&eacute; mais on a bien un polygone r&eacute;gulier &agrave; n c&ocirc;t&eacute;s pour tout n.</p><h2 id="10">3.3) Carr&eacute; pench&eacute;</h2><pre class="codeinput">polygone(4, pi/6, 1);
+</pre><img vspace="5" hspace="5" src="ex3_06.png" alt=""> <pre class="codeinput">polygone(4, (pi/6 + 2*pi), 1);
+</pre><img vspace="5" hspace="5" src="ex3_07.png" alt=""> <p>Comme on peut le voir la rotation avec <img src="ex3_eq00367153670419614486.png" alt="$2\pi$" style="width:15px;height:11px;"> en plus donne bien le m&ecirc;me r&eacute;sultat.</p><h2 id="14">3.4) Pentagramme</h2><p>Un pentagramme est juste un pentagone o&ugrave; au lieu de relier chaque <img src="ex3_eq17254132271108858030.png" alt="$S_i$" style="width:12px;height:13px;"> &agrave; la suite (voir 3.2 pour la d&eacute;finition de S), on a, &agrave; la place, reli&eacute; les <img src="ex3_eq05748104258856086227.png" alt="$S_{2k\bmod{5}}$" style="width:49px;height:13px;"> i.e. <img src="ex3_eq15248369104922063046.png" alt="$S_0, S_2, S_4, S_1...$" style="width:90px;height:13px;"></p><pre class="codeinput">polygone(5, pi/12, 2); <span class="comment">% rotation de pi/12 ajout&eacute; pour r&eacute;-&eacute;quilibrer figure</span>
+</pre><img vspace="5" hspace="5" src="ex3_08.png" alt=""> <h2 id="16">3.5) Cercle</h2><p>Un cercle (de rayon 1) est le graphe de la courbe param&eacute;tr&eacute;e <img src="ex3_eq12463292529975602007.png" alt="$(\cos{\theta}, \sin{\theta})$" style="width:73px;height:15px;"> pour <img src="ex3_eq15100231591947883640.png" alt="$\theta \in [0, 2\pi]$" style="width:61px;height:15px;">. i.e. On doit juste cr&eacute;er un polygone "assez" de points pour donner l'illusion que ce polygone &agrave; "assez de points" est un cercle.</p><pre class="codeinput">polygone(2000, 0, 1);
+</pre><img vspace="5" hspace="5" src="ex3_09.png" alt=""> <p>-- Fonctions --</p><pre class="codeinput">1;
+</pre><pre class="codeinput"><span class="keyword">function</span> polygon(vertex_nb)
+    <span class="comment">% S&ucirc;rcharge de polygone pour phi=pi/4 i.e. pour le "r&eacute;-&eacute;quilibrer",</span>
+    <span class="comment">% i.e. donner l'impression qu'on ait pas appliqu&eacute; de rotation</span>
+    <span class="comment">%</span>
+    polygone(vertex_nb, pi/4, 1);
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> polygone(vertex_nb, phi, k)
+    <span class="comment">% Dessine un polygone r&eacute;gulier &agrave; vertex_nb c&ocirc;t&eacute;s avec un saut de k</span>
+    <span class="comment">% et le tourne de phi degr&eacute;s. (saut i.e. saut dans le reliage des</span>
+    <span class="comment">% points)</span>
+    <span class="comment">%</span>
+    thetas = [0+phi:k*2*pi/vertex_nb:k*2*pi+phi];
+    x = cos(thetas); y=sin(thetas);
+    plot(x, y), axis <span class="string">equal</span>;
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 3, Figures géométriques
+%%
+%
+%% 3.1) Carré
+%
+y = [0 0 1 1];
+x = [0 1 1 0];
+square = polyshape(x,y);
+plot(square);
+
+%% 3.2) Polygone régulier à n côtés
+%
+%%
+% On remarque que l'ensemble S des solutions complexes de la racine de
+% l'unité (i.e. $z^n = 1$) donne exactement n points répartis uniformément
+% sur le cercle trigonométrique, i.e. l'argument du k-eme élément de S 
+% s'exprime commme $\theta_k = k*\frac{2*\pi}{n}$ pour k = 0..n-1. 
+% On peut donc obtenir un polygone régulier à n côtés simplement en les
+% reliants et en ajoutant un point pour $k=n$ pour fermer le polygone.
+%
+%%
+
+polygon(3);
+%%
+polygon(4);
+%%
+polygon(5);
+%%
+polygon(12);
+
+%%
+% Le résultat est légèrement décalé sur le côté mais on a bien un polygone
+% régulier à n côtés pour tout n.
+
+%% 3.3) Carré penché
+%%
+
+polygone(4, pi/6, 1);
+%%
+polygone(4, (pi/6 + 2*pi), 1);
+
+%% 
+% Comme on peut le voir la rotation avec $2\pi$ en plus donne bien le même
+% résultat.
+
+%% 3.4) Pentagramme
+%%
+% Un pentagramme est juste un pentagone où au lieu de relier chaque $S_i$
+% à la suite (voir 3.2 pour la définition de S), on a, à la place, 
+% relié les $S_{2k\bmod{5}}$ i.e. $S_0, S_2, S_4, S_1...$
+%
+
+polygone(5, pi/12, 2); % rotation de pi/12 ajouté pour ré-équilibrer figure
+
+%% 3.5) Cercle
+%%
+% Un cercle (de rayon 1) est le graphe de la courbe paramétrée 
+% $(\cos{\theta}, \sin{\theta})$ pour $\theta \in [0, 2\pi]$.
+% i.e. On doit juste créer un polygone "assez" de points pour donner l'illusion 
+% que ce polygone à "assez de points" est un cercle. 
+% 
+
+polygone(2000, 0, 1);
+
+%%
+% REPLACE_WITH_DASH_DASH Fonctions REPLACE_WITH_DASH_DASH
+1; 
+%%
+
+function polygon(vertex_nb)
+    % Sûrcharge de polygone pour phi=pi/4 i.e. pour le "ré-équilibrer",
+    % i.e. donner l'impression qu'on ait pas appliqué de rotation
+    % 
+    polygone(vertex_nb, pi/4, 1);
+end
+
+function polygone(vertex_nb, phi, k)
+    % Dessine un polygone régulier à vertex_nb côtés avec un saut de k
+    % et le tourne de phi degrés. (saut i.e. saut dans le reliage des
+    % points)
+    %
+    thetas = [0+phi:k*2*pi/vertex_nb:k*2*pi+phi];
+    x = cos(thetas); y=sin(thetas);
+    plot(x, y), axis equal;
+end
+
+
+
+##### SOURCE END #####
+--></body></html>
